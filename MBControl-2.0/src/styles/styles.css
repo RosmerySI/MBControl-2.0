@@ -1,0 +1,23 @@
+body{   
+    height:100vh;
+    margin:0;
+    padding:0
+}
+#root{  
+    width:100vw;
+    height:100vh;
+    margin:0;
+    padding:0;
+   
+    
+}
+h1{
+    color:#765ae2;
+    font-size:40px;
+    font-weight:600;
+    font-family: sans-serif;
+    margin:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

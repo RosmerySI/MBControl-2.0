@@ -1,9 +1,14 @@
 import React from 'react'
 
-export const MBControl = () => {
+import { AppRouter } from './router/AppRouter/AppRouter'
+
+function MBControl() {
+
   return (
     <>
-     <h1>App</h1>
+     <AppRouter/>
     </>
   )
 }
+
+export default MBControl
