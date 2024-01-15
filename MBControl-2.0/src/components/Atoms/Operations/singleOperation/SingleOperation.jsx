@@ -1,15 +1,19 @@
 import * as React from 'react';
 import './singleOperation.css'
+import { useNavigate } from 'react-router-dom';
 
-export const SingleOperation = ({text, imgLink}) => {
-  
+export const SingleOperation = ({text, img,route}) => {
+  const navigate = useNavigate()
+  const onNavigate = () =>{  
+    navigate(route)
+  }
   return (
     <div className='singleOperationContainer'>      
       <div className={text!=='Nuevo Cliente'?'imageContainer':'imageContainerClient'}>
         <img 
           className={text!=='Nuevo Cliente'?'image':'imageClient'} 
-          src={imgLink} alt=""
-          style={{}}
+          src={img} alt=""
+          onClick={onNavigate}          
         />
       </div>
       <div className='spamContainer'>

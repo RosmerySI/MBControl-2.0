@@ -5,7 +5,7 @@ import { ModelsTable } from '../../Atoms/DataTable/ModelsTable/ModelsTable'
 import './hookForm.css'
 
 
-export const HookForm = ({firstInput,secondInput,buttonText, bodyForm,route}) => {
+export const HookForm = ({firstInput,secondInput,firstButtonText,secondButtonText, bodyForm,route}) => {
     const navigate=useNavigate()
     const onSubmit = (e) =>{
         e.preventDefault()          
@@ -15,12 +15,12 @@ export const HookForm = ({firstInput,secondInput,buttonText, bodyForm,route}) =>
     <form onSubmit={onSubmit} className='formStyle'>
         <div className='inputContainer'>
         <label htmlFor={firstInput}>{firstInput==='email'?'Correo:':''}</label>
-        <input type={firstInput} id={firstInput} placeholder={firstInput==='email'&&'correo@correo.com'}/>
+        <input type={firstInput} id={firstInput} placeholder={firstInput==='email'?'correo@correo.com':'Nombre'}/>
         </div>        
         {bodyForm!=='promoter'&& secondInput!==undefined&&
             <div className='inputContainer'>
             <label htmlFor={secondInput}>{secondInput==='password'?'Contraseña:':''}</label>
-            <input type={secondInput} id={secondInput} placeholder='********' />
+            <input type={secondInput} id={secondInput} placeholder= {secondInput==='password'?'********':'RFC'} />
             {/* <img src="../../../assets/images/hide.png" alt="lock"/> */}
             </div>
         }        
@@ -32,21 +32,22 @@ export const HookForm = ({firstInput,secondInput,buttonText, bodyForm,route}) =>
                 <input type='number'></input>
                 <input type='email'></input>
                 {/* checkbox */}
-                <button>{buttonText}</button>
+                <button>{secondButtonText}</button>
             </div>
         :bodyForm==='client'&&
             <div>
                 {/* checkbox */}
                 < ModelsTable/>
                 <input type='select'></input>
-                <button>{buttonText}</button>
+                <button>{secondButtonText}</button>
             </div>
         }
         {
             firstInput==='email'&& secondInput!==undefined&&
             <a href='./forgot'>¿Olvidaste tu contraseña?</a>
         }
-        <button type='submit'>{buttonText}</button>
+        
+        <button type='submit'>{firstButtonText}</button>
     
     
     </form>

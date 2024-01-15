@@ -4,6 +4,7 @@ import {  SingleOperation } from '../singleOperation/SingleOperation'
 import client from '../../../../assets/images/user.png'
 import operation from '../../../../assets/images/cross.png'
 import astronaut from '../../../../assets/images/astronaut.png'
+
 export const Operations = () => {
   return (
     <div className='operations'>
@@ -12,16 +13,19 @@ export const Operations = () => {
       </div> 
     <div className='operationsContainer'> 
       <SingleOperation       
-      imgLink={client}
-      text={'Nuevo Cliente'}      
+      img={client}
+      text={'Nuevo Cliente'} 
+      route={'/newclient'}   
       />
       <SingleOperation      
-      imgLink={operation}                 
-      text={'Nueva Operación'}   
+      img={operation}                 
+      text={'Nueva Operación'}
+      route={'/newoperation'}   
       />
       <SingleOperation
-      imgLink={astronaut}               
-      text={'Nuevo Promotor'}   
+      img={astronaut}               
+      text={'Nuevo Promotor'}
+      route={'/newpromoter'}   
       />
     </div>
     </div>
