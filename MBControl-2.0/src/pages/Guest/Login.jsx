@@ -12,7 +12,7 @@ export const Login = () => {
       <HookForm 
         firstInput={'email'}
         secondInput={'password'}
-        buttonText={'Iniciar Sesión'}
+        firstButtonText={'Iniciar Sesión'}
         route={'/homeadmin'}
         navigate={navigate}
       />
