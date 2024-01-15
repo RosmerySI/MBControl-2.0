@@ -1,0 +1,40 @@
+.singleOperationContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.imageContainer{
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    background-color:rgb(198, 197, 197);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.imageContainerClient{
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.image{
+    width: 100px;
+    height: 100px; 
+}
+.imageClient{
+    width: 130px;
+    height: 130px; 
+}
+.spamContainer{
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+    color:rgb(117, 114, 114);
+    font-size: 16px;
+
+}
