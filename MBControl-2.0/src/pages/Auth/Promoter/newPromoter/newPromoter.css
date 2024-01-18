@@ -1,12 +1,12 @@
 .newPromoter{
-    width:85%;
+    width:100%;
     height: 100%;
     display: flex;
     flex-direction: column; 
     align-items: center;
 }
 .newPromoterContainer{
-    width: 70%;
-    height: 70%;
-    margin-top: 20px;
+    width: 50%;
+    height: min-content;
+    
 }
