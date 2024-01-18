@@ -1,0 +1,24 @@
+.tablePageContainer{
+    width: 85%;
+    height:99%;
+    display: flex;    
+    flex-direction: column;    
+    align-items: center;
+    margin-top: 10px;
+   
+}
+.tableContainer{
+    width: 90%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+   
+}
+.tableButtonContainer{
+    width: 90%;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+}

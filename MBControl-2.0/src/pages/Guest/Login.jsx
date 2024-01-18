@@ -1,21 +1,25 @@
 import React from 'react'
-import '../Guest/styleGuest.css'
 import { HookForm } from '../../components/hooks/hookForm/hookForm'
-import { useNavigate } from 'react-router-dom'
+import '../Guest/styleGuest.css'
 
-export const Login = () => {
-  const navigate=useNavigate()
+export const Login = ({setAuth}) => {  
   return (
     <div className='guest'>
     <div className='guestContainer'>
-      <h1>Hola Bienvenido de Vuelta</h1>
+      <h1 style={{marginBottom:'20px'}}>Hola Bienvenido de Vuelta</h1>
+      <div className='loginFormContainer'>
       <HookForm 
         firstInput={'email'}
         secondInput={'password'}
         firstButtonText={'Iniciar Sesión'}
-        route={'/homeadmin'}
-        navigate={navigate}
+        secondButtonText={''}
+        bodyForm={''}
+        route={'/homelink'}
+        setAuth={setAuth}
+        sessionName={''}
+        
       />
+      </div>
     </div>
     </div>
   )
