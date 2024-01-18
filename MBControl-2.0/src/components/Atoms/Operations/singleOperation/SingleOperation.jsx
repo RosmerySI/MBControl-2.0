@@ -2,9 +2,10 @@ import * as React from 'react';
 import './singleOperation.css'
 import { useNavigate } from 'react-router-dom';
 
-export const SingleOperation = ({text, img,route}) => {
+export const SingleOperation = ({text, img,route,setSessionName}) => {
   const navigate = useNavigate()
-  const onNavigate = () =>{  
+  const onNavigate = () =>{
+    setSessionName(text)  
     navigate(route)
   }
   return (

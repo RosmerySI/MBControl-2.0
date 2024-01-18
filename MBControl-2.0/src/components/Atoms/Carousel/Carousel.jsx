@@ -7,12 +7,12 @@ export const LinkCarousel = () => {
 
     let enlacesObject = [
         {userName:'Jane',
-         userEmail:'correo@correo.com',         
-         userRole:'Admin'   
+         email:'correo@correo.com',         
+         roles:'Admin'   
         },
         {userName:'Jon',
          userEmail:'correo@correo.com',         
-         userRole:'Enlace'   
+         roles:'Enlace'   
         },
     ]
 
@@ -23,14 +23,14 @@ export const LinkCarousel = () => {
             </div>            
             <Carousel autoPlay={false} className='carouselContainer'
             sx={{
-                '& .css-ktslay-MuiButtonBase-root-MuiIconButton-root::hoover':{color:'red'}
+                '& .css-ktslay-MuiButtonBase-root-MuiIconButton-root::hover':{color:'red'}
             }}
             >
                 {
-                    enlacesObject.map((item, index) =>                       
-                    < Paper className='paper'>                                  
-                        <h3>{item.userRole}</h3>                         
-                        <img className='imageCarousel' src={enlaces} ></img>                            
+                    enlacesObject.map((item) =>                       
+                    < Paper className='paper' key={item.email}>                                                    
+                        <h3>{item.roles}</h3>                         
+                        <img className='imageCarousel' src={enlaces} alt='enlaces'></img>                            
                         <h3>{item.userName}</h3>                           
                     </Paper>                       
                     )
