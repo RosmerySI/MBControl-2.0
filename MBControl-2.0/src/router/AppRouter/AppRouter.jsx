@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Guest } from "../Guest/Guest";
 import { Auth } from "../Auth/Auth";
+import { useEffect, useState } from "react";
 
 
 
@@ -8,19 +9,25 @@ import { Auth } from "../Auth/Auth";
 
 export const AppRouter = () => {
   
+    const [auth, setAuth] = useState(false)
+    useEffect(() => {
+        
+        localStorage.getItem('token')&& setAuth(true);
 
+    }, [])
+    
 
     return (
         <>
 
             <BrowserRouter>
-
-               
-                <Auth/>
+                {
+                auth?
+                <Auth  setAuth={setAuth}/>
                     
-                        
-                {/* <Guest /> */}
-                
+                :       
+                <Guest setAuth={setAuth} />
+                }
             </BrowserRouter>
 
         </>
