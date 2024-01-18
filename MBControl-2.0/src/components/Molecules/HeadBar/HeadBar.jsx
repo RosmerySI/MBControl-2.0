@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import logoutIcon from '../../../assets/images/logout.png'
 import './headBar.css'
-import logout from '../../../assets/images/logout.png'
-export const HeadBar = () => {
+
+export const HeadBar = ({setAuth,user,sessionName}) => {
+  const onLogout = () => {
+    localStorage.clear();
+    setAuth(false)
+  }
+
+  
   return (
     <div className='headBarFather'>
-      <h2>MB Control</h2>
-      <hr />
+      <h2>MB Control</h2>      
       <div className='headBarContainer'>
-        <div style={{ width: '85%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <h1>Adminstrador</h1>
+        <div className='sessionNameContainer'>
+          <h1>{sessionName}</h1>
         </div>
         <div className='authUserFather'>
           <div className='authUser'>
-            <p>User -</p>
-            <p>Role</p>
+            <p>{user.name}-</p>
+            <p>{user.role}</p>
             <div className='logoutContainer'>
-              <img src={logout} alt="" />
+              <img src={logoutIcon} onClick={onLogout} alt="" />
             </div>
           </div>
         </div>

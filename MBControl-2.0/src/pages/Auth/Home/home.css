@@ -1,4 +1,4 @@
-.homeAdmin{
+.home{
     width:85%;
     height: 100%;
     display: flex;
@@ -6,7 +6,7 @@
     align-items: center;
    
 }
-.homeAdminContainer{
+.homeContainer{
     width: 70%;
     height: 100%;
     display: flex;
@@ -17,9 +17,9 @@ p{
     margin: 0px;
     
 }
-.buttonHomeAdminContainer{
+.buttonHomeContainer{
     width: 100%;
-    
+    height: 15%;
     display: flex;
     justify-content: center;
 }
