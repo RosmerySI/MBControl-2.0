@@ -29,7 +29,7 @@ export const useForm = ( initialForm = {}, formValidations={} ) => {
     //retorna la funcion
   
     const onInputChange = ({ target }) => {
-        
+   
         const { name, value } = target;
         setFormState({
             ...formState,
