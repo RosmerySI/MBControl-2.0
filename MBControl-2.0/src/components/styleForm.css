@@ -1,32 +1,67 @@
 .formStyle {
-    width: 100%;
-    height: min-content;
+    width: 70%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
 }
 
 .inputContainer {
     width: 100%;
-    height: 90px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: left;
-    /* margin-bottom: 20px; */
+    margin-top: 10px; 
+    margin-bottom: 15px; 
 }
-
+.inputNameContainer {
+    width: 100%;
+    height:60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+}
+.inputRfcContainer {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+.checkbox{
+    width: 20px;
+    
+}
 input {
     width: 100%;
-    height: 70px;
+    height: 60px;
     margin-bottom: 5px;
     border-radius: 50px;
-    border-color: gray;
     border: none;
     text-indent: 50px;
     background-color:#f2f3f7;
     display: flex;
     align-items: center;
+    
+}
+.textFieldInput{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px;
+    border-radius: 50px;
+    border-color: gray;
+    border-style: none;    
+    background-color:#f2f3f7;
+    display: flex;
+    justify-content: center;
     
 }
 input::placeholder {
@@ -37,8 +72,7 @@ input::placeholder {
 label {
     text-transform: capitalize;
     text-align: left;
-    margin-left: 20px;
-    margin-top: 10px;
+    margin-bottom: 5px;
     color:#575a6b;
     font-size: 20px;
     font-family: sans-serif;
@@ -47,24 +81,24 @@ label {
 a {
     width: 100%;
     margin-top: 20px;
-    margin-bottom: 30px;
-    margin-left: 40px;
+    margin-bottom: 30px;   
     color: #765ae2;
     text-decoration: none;
     font-size: 25px;
     font-family: sans-serif;
 }
 .buttonContainer{
-   width:100%;
-   height: 100px;
+   width:70%;
+   height: 60px;
    display:flex;
    flex-direction:row;
    justify-content:center;
    align-items: center;
+   margin-top: 10px;
 }
 button {
-    width: 50%;
-    height: 80%;   
+    width: 100%;
+    height: 100%;   
     border-radius: 50px;
     background-color: #f6bf2a;
     border: none;
@@ -80,9 +114,10 @@ button {
 }
 .selectContainer{
     width:100%;
-    height:30%;
+    height:15%;
     display:flex;
     justify-content:center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 30px;
+  
 }
