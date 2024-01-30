@@ -1,13 +1,9 @@
 import React from 'react'
-import './operations.css'
 import {  SingleOperation } from '../singleOperation/SingleOperation'
+import './operations.css'
 
 
-export const Operations = ({
-  label,
-  first, firstText, firstRoute,
-  second, secondText, secondRoute,
-  third, thirdText, thirdRoute, 
+export const Operations=({label,first,firstText,firstRoute,second,secondText,secondRoute,third, thirdText, thirdRoute, 
   setSessionName 
   }) => {
   return (
