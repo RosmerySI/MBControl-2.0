@@ -23,6 +23,8 @@ import './auth.css'
 import { NewPromoter } from '../../pages/Auth/Promoter/NewPromoter/NewPromoter'
 import { IncomeProviders } from '../../pages/Auth/IncomeProviders/IncomeProviders'
 import { OutcomeProviders } from '../../pages/Auth/OutcomeProvider/OutcomeProviders'
+import { NewIncomeProvider } from '../../pages/Auth/IncomeProviders/NewIncomeProvider'
+import { NewOutComeProvider } from '../../pages/Auth/OutcomeProvider/NewOutComeProvider'
 
 
 export const Auth = ({setAuth}) => {
@@ -60,6 +62,7 @@ export const Auth = ({setAuth}) => {
             
               <Routes>
                 <Route path="/homeadmin" element={<HomeAdmin setSessionName={setSessionName} />} />
+                <Route path="/newclient/:clientId" element={<NewClient models={models} setModels={setModels} />} />
                 <Route path="/newclient" element={<NewClient models={models} setModels={setModels} />} />
                 <Route path="/clients" element={<Clients />} />
                 <Route path="/newoperation" element={<NewOperation />} />
@@ -73,7 +76,9 @@ export const Auth = ({setAuth}) => {
                 <Route path="/newinvoice" element={<NewInvoice />} />
                 <Route path="/invoices" element={<Invoices />} />              
                 <Route path="/incomeproviders" element={<IncomeProviders />} />              
+                <Route path="/newincomeprovider" element={<NewIncomeProvider/>} />              
                 <Route path="/outcomeproviders" element={<OutcomeProviders />} />              
+                <Route path="/newoutcomeprovider" element={<NewOutComeProvider/>} />              
                 <Route path="/*" element={<Navigate to="/homeadmin" />} />
               </Routes>
             
@@ -91,7 +96,9 @@ export const Auth = ({setAuth}) => {
             <Route path="/newinvoice" element={<NewInvoice />} />
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/incomeproviders" element={<IncomeProviders />} />              
-            <Route path="/outcomeproviders" element={<OutcomeProviders />} /> 
+            <Route path="/newincomeprovider" element={<NewIncomeProvider/>} />              
+            <Route path="/outcomeproviders" element={<OutcomeProviders />} />              
+            <Route path="/newoutcomeprovider" element={<NewOutComeProvider/>} />  
             <Route path="/*" element={<Navigate to="/homelink" />} />
             </Routes>
 
