@@ -1,8 +1,141 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
+import { petitions } from '../../../../services/api/petitions'
+import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import edit from '../../../../assets/images/edit.png'
+import list from '../../../../assets/images/lista.png'
+import graphic from '../../../../assets/images/show.png'
 
 export const Operations = () => {
-  let columnFields=[
+  const [object, setObject] = useState()
+
+  const { getObject } = petitions()
+
+  useEffect(() => {
+    getObject('/operation', setObject)
+  }, [])
+  const [openCrear, setOpenCrear] = React.useState(false);
+  const handleOpenCrear = () => setOpenCrear(true);
+  const handleCloseCrear = () => setOpenCrear(false);
+
+  //edit
+  // const [params] = useSearchParams();
+  // const email = params.get('email');
+  // const startDate = params.get('startDate');
+  // const endDate = params.get('endDate');
+  // useEffect(() => {
+  //   getOperaciones(email, startDate, endDate)
+  //   getFolio(userEmail)
+  //   setSessionName('Operaciones')  
+  // }, []);
+
+ 
+
+  let counter = 0
+  let updatedOperation = []
+ 
+  object?.forEach(item => {
+    let element =
+    {
+      clientId: item.clientId,
+      clientName: item.clientName,
+      comisionPromoter: '$' + ' ' + item.comisionPromoter,
+      comisionTotal: '$' + ' ' + item.comisionTotal,
+      comisionUtilidadMB: '$' + ' ' + item.comisionUtilidadMB,
+      companyId: item.companyId,
+      companyName: item.companyName,
+      completed: item.userName === 'Totales' ? item.completed ? 'Completado' : 'En curso' : '',
+      createdAt: item.userName !== 'Totales' ? item.createdAt : 'Totales',
+      updatedAt: item.userName !== 'Totales' ? item.updatedAt : '',
+      excedente: '$' + ' ' + item.excedente,
+      factura: item.invoice,
+      folio: item.userName !== 'Totales' ? item.folio : '',
+      id: item.id,
+      isTotalRetorno: item.userName !== 'Totales' ? item.isTotalRetorno ? 'Total' : 'Parcial' : '',
+      iva: '$' + ' ' + item.iva,
+      promoterId: item.promoterId,
+      promoterName: item.promoterName,
+      retornoTotalCliente: '$' + ' ' + item.models[0]?.retorno,
+      subTotalOperacion: '$' + ' ' + item.subTotalOperacion,
+      totalOperacion: '$' + ' ' + item.totalOperacion,
+      costoProviderOutcome: '$' + ' ' + item.costoProviderOutcome,
+      costoProviderIncome: '$' + ' ' + item.costoProviderIncome,
+      realCost: '$' + ' ' + item.costoProviderOutcome + item.costoProviderIncome,
+      concentradora: '$' + ' ' + (item.comisionTotal - (item.costoProviderOutcome + item.costoProviderIncome)),
+      userName: item.userName !== 'Totales' ? item.userName : '',
+      product: item.models[0]?.name,
+      providerIncome: item.models[0]?.providerIncomeName,
+      clientPercent: item.models[0]?.clientPercent + ' ' + '%',
+      comercialCostPercent: item.models[0]?.comercialCostPercent + ' ' + '%',
+      providerIncomePercent: item.models[0]?.providerIncomePercent + ' ' + '%',
+      providerOutcomePercent: item.models[0]?.providerOutcomePercent + ' ' + '%',
+      providerOutcomeName: item.models[0]?.providerOutcomeName,
+      ADR: item.userName !== 'Totales' ? item.models[0]?.name === 'ADR' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      CUCA: item.userName !== 'Totales' ? item.models[0]?.name === 'CUCA' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      Finpulso: item.userName !== 'Totales' ? item.models[0]?.name === 'Finpulso' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      Monedero: item.userName !== 'Totales' ? item.models[0]?.name === 'Monedero' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      Asimilado: item.userName !== 'Totales' ? item.models[0]?.name === 'Asimilado' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      Efectivo: item.userName !== 'Totales' ? item.models[0]?.name === 'Efectivo' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      TranferEx: item.userName !== 'Totales' ? item.models[0]?.name === 'TranferEx' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      CONSAR: item.userName !== 'Totales' ? item.models[0]?.name === 'CONSAR' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      SINDICATO: item.userName !== 'Totales' ? item.models[0]?.name === 'SINDICATO' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      TransferSim: item.userName !== 'Totales' ? item.models[0]?.name === 'TransferSim' ? '$' + ' ' + item.models[0]?.retorno : '$' + ' ' + 0 : '',
+      comercialCost: '$' + ' ' + item.comercialCost,
+      g3Name: item.g3Name,
+      position: counter
+    }
+    updatedOperation.push(element)
+    counter++
+  }); 
+
+  // const handleClickGraphic = (event, cellvalues) => {
+  //   const operationId = cellvalues.row.id;
+  //   navigate(`/pieOperation/?operationId=${operationId}`)
+  
+  // }
+  let positionTotal = updatedOperation && updatedOperation.length - 1
+
+  let values = [
+    object && object[positionTotal]?.retornoTotalCliente,
+    object && object[positionTotal]?.excedente,
+    object && object[positionTotal]?.comisionPromoter,
+    object && object[positionTotal]?.costoProviderIncome,
+    object && object[positionTotal]?.costoProviderOutcome,
+    object && object[positionTotal]?.comisionUtilidadMB,
+  ]
+
+
+  const mydata = {
+    labels: ['Retorno', 'Excedente', 'Comisión Promotor', 'Costo Proveedor Ingreso', 'Costo Proveedor Egreso',
+      ' Comision Market'],
+
+    datasets: [
+      {
+        label: 'Monto',
+        data: values,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const columnFields = [
     {
       field: 'createdAt',
       headerName: 'Creado',
@@ -302,10 +435,148 @@ export const Operations = () => {
       sortable: false,
       width: 200,
     },
-  ]
+    {
+      field: 'Gráfica',
+      disableColumnMenu: true,
+      sortable: false,
+      width: 120,
+      renderCell: (cellvalues) => {
+        return (
+          (cellvalues.row.createdAt !== 'Totales') &&
+          <Button
+            style={{ backgroundColor: "white", boxShadow: 'none' }}
+            variant='contained'
+            color='primary'
+            // onClick={async (event) => {
+            //   handleClickGraphic(event, cellvalues, cellvalues.row.position);
+            // }}
+          >
+            <img style={{width:'30px',height:'25px',margin:'0px'}} src={graphic} />
+          </Button>
+        )
+      }
+    },
+    {
+      field: 'Sub-Operaciones',
+      disableColumnMenu: true,
+      sortable: false,
+      width: 80,
+      renderCell: (cellvalues) => {
+        return (
+          (cellvalues.row.createdAt !== 'Totales') &&
+          <>
+            {
+              cellvalues.row.clientName !== 'Totales' &&
+              <div >
+                <Button
+                  style={{ backgroundColor: "white", boxShadow: 'none' }}
+                  variant='contained'
+                  color='primary'
+                  // onClick={(event) => {
+                  //   handleClickSubOperaciones(event, cellvalues);
+                  // }}
+                >
+                  <img style={{width:'30px',height:'25px',margin:'0px'}} src={list} />
+                </Button>                
+              </div>
+            }
+          </>
+        )
+      }
+    },
+    {
+      field: 'Editar',
+      disableColumnMenu: true,
+      sortable: false,
+      width: 90,
+      renderCell: (cellvalues) => {
+        return (
+          <>
+            {
+              (cellvalues.row.createdAt !== 'Totales') &&
+              <Button
+                style={{
+                  backgroundColor: "white",
+                  boxShadow: 'none',
+                }}
+                variant='contained'
+                color='primary'
+                onClick={(event) => {
+                  handleClickEditar(event, cellvalues);
+                }}
+              >
+                <img style={{width:'30px',height:'25px',margin:'0px'}} src={edit}/>
+              </Button>
+            }
+          </>
+
+        )
+      }
+    },
+    {
+      field: 'Suboperación',
+      disableColumnMenu: true,
+      sortable: false,
+      width: 150,
+      renderCell: (cellvalues) => {
+        return (
+          <>
+            {
+              (cellvalues.row.createdAt !== 'Totales') &&
+              <Button
+                variant='contained'
+                color={!cellvalues.row.status ? 'error' : 'success'}
+                onClick={(event) => {
+                  if (!cellvalues.row.status) {
+                    navigate(`/retorno/${cellvalues.row.id}`)
+                  }
+                }}
+              >
+                +
+              </Button>
+            }
+          </>
+        )
+      }
+    },
+  ];
+
+  const navigate = useNavigate()
+
+  // const handleRetorno = (e) => {
+  //   e.preventDefault();
+  //   navigate('/retorno')
+  // }
+
+  // const handleAsignarFactura = (e) => {
+  //   e.preventDefault();
+  //   navigate('/asignarfactura')
+
+  // }
+
+  // const handleClickSubOperaciones = async (event, cellvalues) => {
+  //   const parentOperationId = cellvalues.row.id;
+  //   navigate(`/suboperations/?parentOperationId=${parentOperationId}`);
+  // }
+
+  const handleClickEditar = async (event, cellvalues) => {
+    const operationId = cellvalues.row.id;
+    navigate(`/newoperation/?operationId:${operationId}`)
+  }
+
+
+  const canvases = document.querySelectorAll('canvas');
+
+  canvases.forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    ctx.fillRect(25, 25, 100, 100);
+    ctx.clearRect(45, 45, 60, 60);
+    ctx.strokeRect(50, 50, 50, 50);
+  });
   return (    
     <DataTables
-    route={'/operation'}
+    buttonRoute={'/newoperation'}
+    object={updatedOperation}
     columnFields={columnFields}
     buttonText={'Nueva Operación'}
     />    
