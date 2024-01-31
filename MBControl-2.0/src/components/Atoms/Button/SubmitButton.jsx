@@ -9,17 +9,18 @@ export const SubmitButton = ({data,firstButtonText,secondButtonText,setAuth,rout
 
   const handleSubmit = (e) => {
     e.preventDefault() 
-    console.log(route,setAuth,data,navigate,rows)      
-    //useSubmit(route,setAuth,data,navigate,rows)
+      
+    useSubmit(route,setAuth,data,navigate,rows)
   }
   return (
     <div className='buttonContainer'>
     {
     secondButtonText&&
-    <button style={{backgroundColor:'white',borderStyle:'solid', borderWidth:'0.2px', fontSize:'16px'}} 
+    <button 
+    className='secondButton' 
     onClick={handleSubmit} type='submit'>{secondButtonText}</button>
     }
-    <button onClick={handleSubmit} type='submit'>{firstButtonText}</button>
+    <button className='button' onClick={handleSubmit} type='submit'>{firstButtonText}</button>
     </div>
   )
 }

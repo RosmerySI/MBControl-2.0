@@ -26,7 +26,7 @@ export const HomeAdmin = ({setSessionName}) => {
         
         <LinkCarousel />
         <div className='buttonHomeContainer'>
-          <button>REPORTE</button>
+          <button className='button'>REPORTE</button>
         </div>
       </div>
 

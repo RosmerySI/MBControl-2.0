@@ -103,7 +103,7 @@ a {
    align-items: center;
    margin-top: 10px;
 }
-button {
+.button {
     width: 100%;
     height: 100%;   
     border-radius: 50px;
@@ -111,6 +111,16 @@ button {
     border: none;
     color: black;
     font-size: 25px;
+    cursor: pointer;
+}
+.secondButton {
+    width: 100%;
+    height: 100%;   
+    border-radius: 50px;
+    background-color: white;
+    border: solid 1px;
+    color: gray;
+    font-size: 20px;
     cursor: pointer;
 }
 .tableInputClientContainer{

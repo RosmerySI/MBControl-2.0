@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './toggle.css'
 
-export const Toggle = ({toggleInvoice, toggleTotal,toggleReal,handleToggleInvoiceChange,
-    handleToggleTotalChange, handleToggleRealChange,firstValue,secondValue}) => {     
+export const Toggle = ({
+    toggleInvoice, 
+    toggleTotal,
+    toggleReal,
+    handleToggleInvoiceChange,
+    handleToggleTotalChange, 
+    handleToggleRealChange,
+    firstValue,
+    secondValue}) => {   
     return (
     <div className="toggle-container" 
     onClick={handleToggleInvoiceChange?handleToggleInvoiceChange:
