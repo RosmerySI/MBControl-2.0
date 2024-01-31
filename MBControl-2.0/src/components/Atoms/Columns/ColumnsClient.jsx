@@ -1,6 +1,6 @@
 import { Button, InputAdornment, TextField } from '@mui/material'
 import React from 'react'
-import NumberFormatCustom from '../NumberFormat/NumberFormat'
+import  { NumberFormatPercent } from '../NumberFormat/NumberFormat'
 
 
 export const ColumnsClient = (
@@ -31,7 +31,7 @@ export const ColumnsClient = (
                 autoComplete="off"
                 sx={{ width: '180px', padding: '0px', '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 } }}
                 InputProps={{
-                  inputComponent: NumberFormatCustom,
+                  inputComponent: NumberFormatPercent,
                   endAdornment: <InputAdornment position="end">%</InputAdornment>,
                 }}
               >

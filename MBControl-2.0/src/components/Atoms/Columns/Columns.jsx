@@ -1,6 +1,7 @@
-import React from 'react'
-import { ListItemText, MenuItem, TextField } from '@mui/material'
-import NumberFormatCustom from '../NumberFormat/NumberFormat';
+import React from 'react';
+import { ListItemText, MenuItem, TextField } from '@mui/material';
+import { NumberFormatMoney } from '../NumberFormat/NumberFormat';
+
 
 
 
@@ -39,7 +40,7 @@ export const Columns = (
               width: '180px', padding: '0px',
               '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 }
             }}
-            InputProps={{ inputComponent: NumberFormatCustom }}
+            InputProps={{ inputComponent: NumberFormatMoney}}
             inputProps={{ maxlength: limitCharacter }}
           />
         )
