@@ -1,0 +1,55 @@
+.toggle-container{
+    position: relative;
+    width: 190px;
+    height: 32px;
+    background-color: rgb(238, 233, 233) ;
+    color: rgb(147, 143, 143);
+    font-family: sans-serif;
+    font-size: 10px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 3px;
+    padding: 10px;  
+    margin-top: 5px;
+}
+.toggle-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 110px;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 35px;
+    cursor: pointer;
+    color: rgb(249, 236, 236);
+    background-color: rgba(57,180,74,255) ;
+    box-shadow: 0 2px 4px rgb(0,0,0,0.25);
+    padding: 8px 12px;
+    border-radius: 3px;
+    position: absolute;
+    transition: all 0.2s ease;
+    left: 100px;
+    bottom: 1px;
+    text-align: center;   
+}
+.disable{
+    background-color: #39b44a;
+    left: 1px;
+}
+.firstValue{
+    position: relative;
+    top: 9px; 
+    left: 20px;   
+    width:74px;
+    display: inline;
+    font-size: 12px;    
+}
+.secondValue{
+    position: relative;
+    top: 9px;
+    left: 65px;
+    width: min-content;
+    display: inline;
+    font-size: 12px;    
+}

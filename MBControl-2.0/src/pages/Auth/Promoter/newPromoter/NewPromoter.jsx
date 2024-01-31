@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputAdornment, TextField } from '@mui/material';
 import { petitions } from '../../../../services/api/petitions'
-import { NumericFormat } from 'react-number-format';
-import PropTypes from 'prop-types';
-import { jwtDecode } from 'jwt-decode';
-import '../../newStyle.css'
 import { useForm } from '../../../../utilities/hook/useForm';
 import { InputText } from '../../../../components/Atoms/Inputs/InputText';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
@@ -12,7 +8,10 @@ import { InputSelect } from '../../../../components/Atoms/Inputs/InputSelect';
 import { InputEmail } from '../../../../components/Atoms/Inputs/InputEmail';
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
 import { InputCheckBox } from '../../../../components/Atoms/Inputs/InputCheckBox';
-
+import { NumericFormat } from 'react-number-format';
+import PropTypes from 'prop-types';
+import { jwtDecode } from 'jwt-decode';
+import '../../newStyle.css'
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -278,20 +277,59 @@ export const NewPromoter = () => {
         {
           models !== undefined && G3 !== undefined && links !== undefined &&
           <div className='formStyle'>
-            <InputText placeholder={'Nombre'} name={name} phone={undefined} invoiceNumber={undefined} amount={undefined}
-            nameValid={nameValid} phoneValid={''} onInputChange={onInputChange} />
+            <InputText 
+            placeholder={'Nombre'} 
+            name={name} 
+            phone={undefined} 
+            invoiceNumber={undefined} 
+            amount={undefined}
+            nameValid={nameValid} 
+            phoneValid={''} 
+            onInputChange={onInputChange} />
             <ModelsTable rows={models} columns={columns} />
             <div style={{ width: '100%', height: 'max-content', display: 'flex', 
             flexDirection: 'row', alignItems: 'center',justifyContent:'space-between'}}>
-              <InputSelect object={G3} promoter={undefined} g3={g3} link={undefined} client={undefined} 
-              company={undefined} onInputChange={onInputChange} labelText={'G3'} />
-              <InputSelect object={linksObject} promoter={undefined} g3={undefined} link={link} 
-              client={undefined} company={undefined} onInputChange={onInputChange} labelText={'Enlaces'}/>
+              <InputSelect 
+              object={G3} 
+              promoter={undefined} 
+              g3={g3} 
+              link={undefined} 
+              client={undefined} 
+              company={undefined}
+              invoice={undefined}
+              model={undefined} 
+              onInputChange={onInputChange} 
+              labelText={'Empresa'} />
+              <InputSelect 
+              object={linksObject} 
+              promoter={undefined} 
+              g3={undefined} 
+              link={link} 
+              client={undefined} 
+              company={undefined}
+              invoice={undefined}
+              model={undefined} 
+              onInputChange={onInputChange} 
+              labelText={'Enlaces'}/>
             </div>
-            <div style={{ width: '100%', height: 'max-content', display: 'flex', flexDirection: 'row' }}>
-              <InputText placeholder={'Telefono'} name={undefined} phone={phone} invoiceNumber={undefined} amount={undefined}
-              nameValid={''} phoneValid={phoneValid} onInputChange={onInputChange} />
-              <InputEmail email={email} emailValid={emailValid} onInputChange={onInputChange} />
+            <div 
+            style={{width:'100%',height:'max-content',display:'flex',flexDirection:'row',
+            justifyContent:'space-around'}}>
+              <InputText 
+              placeholder={'Telefono'} 
+              name={undefined} 
+              phone={phone} 
+              invoiceNumber={undefined} 
+              amount={undefined}
+              invoice={undefined}
+              model={undefined}
+              nameValid={''} 
+              phoneValid={phoneValid} 
+              onInputChange={onInputChange} />
+              <InputEmail 
+              email={email} 
+              emailValid={emailValid} 
+              onInputChange={onInputChange} />
             </div>
             <div style={{width:'100%',display:'flex',flexDirection:'row'}}>
               <div style={{width:'50%',fontFamily:'sans-serif',color:'gray',fontSize:'20px'}}>
@@ -301,13 +339,21 @@ export const NewPromoter = () => {
               justifyContent: 'space-around' }}>
                 <InputCheckBox 
                 checkedValue={checkedEmail} 
-                handleChangeValue={handleChangeEmail} text={'Email'}/>
+                handleChangeValue={handleChangeEmail} 
+                text={'Email'}/>
                 <InputCheckBox 
                 checkedValue={checkedWhatsapp} 
-                handleChangeValue={handleChangeWhatsapp} text={'WhatsApp'}/>
+                handleChangeValue={handleChangeWhatsapp} 
+                text={'WhatsApp'}/>
               </div>
             </div>
-            <SubmitButton data={{ name, g3, link, phone, email,checkedEmail,checkedWhatsapp,dataTable }} firstButtonText={'Crear'} secondButtonText={'Añadir Otro'} setAuth={''} route={'promoter'} rows={models} />
+            <SubmitButton 
+            data={{ name, g3, link, phone, email,checkedEmail,checkedWhatsapp,dataTable }} 
+            firstButtonText={'Crear'} 
+            secondButtonText={'Añadir Otro'} 
+            setAuth={''} 
+            route={'promoter'} 
+            rows={models} />
           </div>
         }
       </div>

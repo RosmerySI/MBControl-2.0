@@ -197,14 +197,40 @@ return (
     {       
       models !== undefined&&promoters!==undefined&&
       <div  className='formStyle'>
-      <InputText placeholder={'Nombre'} name={name} phone={undefined} invoiceNumber={undefined} amount={undefined}
-      nameValid={nameValid} phoneValid={''} onInputChange={onInputChange}/>
-      <InputRfc rfc={rfc} checkedRfc={checkedRfc} rfcValid={rfcValid} 
-      onInputChange={onInputChange} handleChangeRfc={handleChangeRfc}/>
+      <InputText 
+      placeholder={'Nombre'} 
+      name={name} 
+      phone={undefined} 
+      invoiceNumber={undefined} 
+      amount={undefined}
+      nameValid={nameValid} 
+      phoneValid={''} 
+      onInputChange={onInputChange}/>
+      <InputRfc 
+      rfc={rfc} 
+      checkedRfc={checkedRfc} 
+      rfcValid={rfcValid} 
+      onInputChange={onInputChange} 
+      handleChangeRfc={handleChangeRfc}/>
       <ModelsTable rows={models} columns={columns}/>
-      <InputSelect object={promoters} promoter={promoter} g3={undefined} link={undefined}
-      client={undefined} company={undefined} onInputChange={onInputChange} labelText={'Promotores'}/>
-      <SubmitButton data={{name,rfc,dataTable,promoter}} firstButtonText={'Crear'} secondButtonText={'Añadir Otro'} setAuth={''} route={'client'}rows={models}/>
+      <InputSelect 
+      object={promoters} 
+      promoter={promoter} 
+      g3={undefined} 
+      link={undefined}
+      client={undefined} 
+      company={undefined}
+      invoice={undefined}
+      model={undefined} 
+      onInputChange={onInputChange} 
+      labelText={'Promotores'}/>
+      <SubmitButton 
+      data={{name,rfc,dataTable,promoter}} 
+      firstButtonText={'Crear'} 
+      secondButtonText={'Añadir Otro'} 
+      setAuth={''} 
+      route={'client'}
+      rows={models}/>
       </div>       
     }
     </div>

@@ -8,7 +8,7 @@ export const InputRfc = ({rfc,checkedRfc,rfcValid,onInputChange,handleChangeRfc}
         <div className='inputRfcContainer'>
             <TextField
                 variant='standard'
-                className='textFieldInput'
+                className='textInput'
                 type='text'
                 placeholder={'RFC'}
                 name={'rfc'}

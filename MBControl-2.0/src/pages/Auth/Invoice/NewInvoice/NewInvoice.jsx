@@ -45,7 +45,9 @@ export const NewInvoice = () => {
       g3={undefined} 
       link={undefined} 
       client={client} 
-      company={undefined} 
+      company={undefined}
+      invoice={undefined}
+      model={undefined} 
       onInputChange={onInputChange} 
       labelText={'Cliente'}/>
     <InputSelect 
@@ -54,7 +56,9 @@ export const NewInvoice = () => {
       g3={undefined} 
       link={undefined} 
       client={undefined} 
-      company={company} 
+      company={company}
+      invoice={undefined}
+      model={undefined} 
       onInputChange={onInputChange} 
       labelText={'Empresa'}/>
     <InputText 

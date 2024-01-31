@@ -10,7 +10,7 @@ export const InputEmail = ({email,emailValid,onInputChange,labelText}) => {
             }
             <TextField
                 variant='standard'
-                className='textFieldInput'
+                className={labelText?'textFieldInput':'textInput'}
                 type='email'
                 placeholder={'correo@correo.com'}
                 name={'email'}

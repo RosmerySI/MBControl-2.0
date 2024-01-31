@@ -12,8 +12,8 @@ export const ModelsTable= ({rows,columns}) => {
       pageSize={10}
       rowsPerPageOptions={[10]}
       getRowId={(row) => row.name}
-      sx={{height:'330px',
-      '& .MuiTablePagination-root css-rtrcn9-MuiTablePagination-root':{minHeight:'0'}}}
+      sx={{height:'250px',
+      '& .MuiTablePagination-root css-rtrcn9-MuiTablePagination-root':{minHeight:'0px'}}}
     />
     </div>
     

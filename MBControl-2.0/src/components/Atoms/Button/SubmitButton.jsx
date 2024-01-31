@@ -8,8 +8,9 @@ export const SubmitButton = ({data,firstButtonText,secondButtonText,setAuth,rout
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
-    e.preventDefault()       
-    useSubmit(route,setAuth,data,navigate,rows)
+    e.preventDefault() 
+    console.log(route,setAuth,data,navigate,rows)      
+    //useSubmit(route,setAuth,data,navigate,rows)
   }
   return (
     <div className='buttonContainer'>
