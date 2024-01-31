@@ -2,16 +2,8 @@ import * as React from 'react';
 import { Link, useNavigate } from "react-router-dom"
 import { Button, Box, Modal } from "@mui/material"
 import { DataGrid } from "@mui/x-data-grid"
-import { jwtDecode } from "jwt-decode";
 import './tablesPages.css'
 
-let token = ''
-let roles = []
-token = localStorage.getItem('token');
-if (token) {
-  const decoded = jwtDecode(token);
-  roles = decoded.Roles
-}
 
 export const DataTables = ({ buttonRoute,object, columnFields, buttonText }) => {
   const navigate=useNavigate()

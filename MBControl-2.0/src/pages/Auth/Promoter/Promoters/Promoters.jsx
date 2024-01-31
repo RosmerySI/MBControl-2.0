@@ -2,19 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
 import { petitions } from '../../../../services/api/petitions'
 import { Box, Button, Modal } from '@mui/material'
-import { jwtDecode } from "jwt-decode";
+
 import edit from '../../../../assets/images/edit.png'
 import list from '../../../../assets/images/lista.png'
 import { useNavigate } from 'react-router-dom';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
+import { userInfo } from '../../../../utilities/userInfo/userInfo'
 
-let token = ''
-let roles = []
-token = localStorage.getItem('token');
-if (token) {
-    const decoded = jwtDecode(token);
-    roles = decoded.Roles
-}
+
 
 export const Promoters = () => {
   const [object, setObject] = useState()
@@ -22,6 +17,7 @@ export const Promoters = () => {
 
 
   const { getObject } = petitions()
+  const { userroles } = userInfo()
 
   useEffect(() => {
     getObject('/promoter', setObject)
@@ -184,13 +180,13 @@ export const Promoters = () => {
 
     },
     {
-      field: (roles==='Admin')&&'Editar',      
+      field: (userroles==='Admin')&&'Editar',      
       disableColumnMenu: true,
       sortable: false,
       width: 70,
       renderCell: (cellvalues) => {
         return (
-          //(roles==='Admin')&&
+          //(userroles==='Admin')&&
           <Button
             style={{
               backgroundColor: "white",

@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
+import { DataTables } from '../../../../components/Atoms/Tables/DataTables';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
 import { Box, Button, Modal } from '@mui/material';
-import { petitions } from '../../../../services/api/petitions'
-import { jwtDecode } from "jwt-decode";
-import edit from '../../../../assets/images/edit.png'
-import list from '../../../../assets/images/lista.png'
+import { petitions } from '../../../../services/api/petitions';
+import { userInfo } from '../../../../utilities/userInfo/userInfo';
+import edit from '../../../../assets/images/edit.png';
+import list from '../../../../assets/images/lista.png';
 
 
-let token = ''
-let roles = []
-token = localStorage.getItem('token');
-if (token) {
-    const decoded = jwtDecode(token);
-    roles = decoded.Roles
-}
 export const Clients = () => {
     const [object, setObject] = useState()
     
     const [client, setClient] = useState()
 
     const { getObject } = petitions()
+
+    const {userrole} = userInfo()
 
     useEffect(() => {
         getObject('/client', setObject)        
@@ -166,14 +161,14 @@ export const Clients = () => {
 
         },
         {
-            field: (roles === 'Admin') && 'Editar',
+            field: (userrole === 'Admin') && 'Editar',
             disableColumnMenu: true,
             sortable: false,
             width: 100,
             renderCell: (cellvalues) => {
                 return (
 
-                    (roles === 'Admin') &&
+                    (userrole === 'Admin') &&
 
                     <Button
                         style={{

@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { ListItemText, MenuItem, TextField } from '@mui/material';
-import { Toggle } from '../../../../components/Atoms/Toggle/Toggle'
+import React, { useEffect, useState } from 'react';
+import { Toggle } from '../../../../components/Atoms/Toggle/Toggle';
 import { InputSelect } from '../../../../components/Atoms/Inputs/InputSelect';
 import { InputText } from '../../../../components/Atoms/Inputs/InputText';
 import { useForm } from '../../../../utilities/hook/useForm';
 import { petitions } from '../../../../services/api/petitions';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
-import { NumericFormat } from 'react-number-format';
-import PropTypes from 'prop-types';
-import { jwtDecode } from 'jwt-decode';
+import { Columns } from '../../../../components/Atoms/Columns/Columns';
+import { userInfo } from '../../../../utilities/userInfo/userInfo';
 
 const initialValue = {
   client: '',
@@ -19,34 +17,7 @@ const initialValue = {
   amount: '',
   model:[], 
 }
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, ...other } = props;
 
-  return (
-    <NumericFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value,
-          },
-        });
-      }}
-      thousandSeparator
-      valueIsNumericString
-      decimalScale={2}
-      prefix="$"
-    />
-  );
-}
-
-NumberFormatCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
 export const NewOperation = () => {
   
   const [toggleInvoice, setToggleInvoice] = useState(false);
@@ -58,15 +29,13 @@ export const NewOperation = () => {
   const [incomeProviders, setIncomeProviders] = useState()
   const [outcomeProviders, setOutcomeProviders] = useState()
   const [outcomeProviderById, setOutcomeProvidersById] = useState()
+  const [incomeProvider ,  setIncomeProvider ]=useState()
+  const [outcomeProvider ,  setOutcomeProvider ]=useState()
+  const [formData, setFormData] = useState({})
 
   const {getObject} = petitions()
-
-  const {client,company,folio,invoice,amount,model,onInputChange}=useForm(initialValue)
-  
-  
-  
-  const [formData, setFormData] = useState({
-  })
+  const {useremail} = userInfo()
+  const {client,company,folio,invoice,amount,model,onInputChange}=useForm(initialValue)  
 
   useEffect(() => {
     getObject('/company', setCompanies)
@@ -77,9 +46,6 @@ export const NewOperation = () => {
     getObject('/providerOutCome', setOutcomeProviders)
   }, [])
 
-  
- 
-  
   let modelProvider = []
   model?.forEach(element => {
     models?.forEach(item => {
@@ -92,8 +58,7 @@ export const NewOperation = () => {
       }
     })
   })  
-  const [incomeProvider ,  setIncomeProvider ]=useState()
-  const [outcomeProvider ,  setOutcomeProvider ]=useState()
+  
   useEffect(() => {
     if (models) {
       let formDataCopy = { ...formData }
@@ -110,12 +75,14 @@ export const NewOperation = () => {
       setOutcomeProvider(outcomeProviderCopy)
     }
   }, [models]);
+
   const handleIncomeProviderChange=event=>{
     setIncomeProvider(formState => ({
       ...formState,
       [event.target.name]: event.target.value
     }));
   };
+
   const handleOutcomeProviderChange = (event) => {    
     setOutcomeProvider(formState => ({
       ...formState,
@@ -123,6 +90,7 @@ export const NewOperation = () => {
     }));
    
   };
+
   const getOutcomeProvider = async(myId) => {
  
     //const modelIndex=models?.findIndex(item=>item.id==myId)
@@ -130,103 +98,18 @@ export const NewOperation = () => {
     
     ;
   };
-  const limitCharacter = 11;
-  let columns = [
-    {
-      field: 'name',
-      headerName: 'Productos',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'Monto',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 150,
-      renderCell: (cellvalues) => {        
 
-        return (
-          <TextField
-            name={cellvalues.row.name}
-            value={formData[cellvalues.row.name]}
-            onChange={onInputChange}
-            autoComplete="off"
-            sx={{width:'180px',padding:'0px',
-            '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 }}}
-            InputProps={{inputComponent:NumberFormatCustom}}
-            inputProps={{maxlength:limitCharacter}}
-          />
-        )
-      }
-    },
-    {
-      field: 'Proveedor Ingreso',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 230,
-      renderCell: (cellvalues) => {
-        return (
-          <TextField          
-          select
-          name={cellvalues.row.name}
-          variant="outlined"
-          className='container_input_email'
-          value={incomeProvider[cellvalues.row.name]}
-          onChange={ handleIncomeProviderChange}     
-          sx={{width:{sm:200},height:{sm:60},backgroundColor:'rgb(185, 181, 181)',     
-          boxShadow:'none','.MuiOutlinedInput-notchedOutline':{border:0}}}>
-          {incomeProviders?.map((test) => (
-            <MenuItem key={test.id} value={test.id}>
-              <ListItemText sx={{width:{sm:50},display:'inline-block'}}
-                primary={test.name}/>
-            </MenuItem>
-          ))}
-        </TextField>
-        )
-      }
-    },
-    {
-      field: 'Proveedor Egreso',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 230,
-      renderCell: (cellvalues) => {
-        return (          
-          <TextField                   
-          select
-          name={cellvalues.row.name}
-          variant="outlined"
-          className='container_input_email'
-          value={outcomeProvider[cellvalues.row.name]}
-          onChange={handleOutcomeProviderChange}
-          onFocus={()=>{getOutcomeProvider(cellvalues.row.id)}}    
-          sx={{width:{sm:200},backgroundColor:'rgb(185, 181, 181)',  
-            boxShadow:'none','.MuiOutlinedInput-notchedOutline':{border:0}
-          }}>
-          {       
-            outcomeProviderById?.map((test) => (
-            // outcomeProviderById[models.findIndex(item=>item.id==cellvalues.row.id)]?.map((test) => (
-            <MenuItem key={test.id} value={test.id} >
-              <ListItemText
-                sx={{width:{sm:50},display:'inline-block'}}
-                primary={test.name} />
-            </MenuItem>
-          ))}
-        </TextField>        
-        )
-      }
-    },    
-  ]
-
-
-  let token
-  let useremail
-  token = localStorage.getItem('token');
-  if (token) {
-    const decoded = jwtDecode(token);
-    useremail = decoded.email
-  }
-
+  const {columns} = Columns(
+    incomeProvider,
+    outcomeProvider,
+    formData,
+    incomeProviders,
+    outcomeProviderById,
+    onInputChange,
+    handleIncomeProviderChange,
+    handleOutcomeProviderChange,
+    getOutcomeProvider
+  )
   const handleToggleInvoiceChange = () => {
     setToggleInvoice(!toggleInvoice);
   }
@@ -327,7 +210,7 @@ export const NewOperation = () => {
           model={model}
           onInputChange={onInputChange}
           labelText={'Productos'} />
-        {modelProvider&&<ModelsTable rows={modelProvider} columns={columns}/>}      
+        {modelProvider&&columns&&<ModelsTable rows={modelProvider} columns={columns}/>}      
         <SubmitButton 
         data={{client,company,folio,invoice,amount,toggleTotal,model,formData}} 
         firstButtonText={'Crear'} 

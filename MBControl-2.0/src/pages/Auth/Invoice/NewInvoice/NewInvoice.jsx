@@ -4,7 +4,7 @@ import { InputSelect } from '../../../../components/Atoms/Inputs/InputSelect'
 import { InputText } from '../../../../components/Atoms/Inputs/InputText'
 import { useForm } from '../../../../utilities/hook/useForm'
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton'
-import { jwtDecode } from 'jwt-decode'
+import { userInfo } from '../../../../utilities/userInfo/userInfo'
 import '../../newStyle.css'
 
 const initialValue = {
@@ -17,24 +17,16 @@ export const NewInvoice = () => {
 
   const [companies, setCompanies] = useState()
   const [clients, setClients] = useState()
-  
-  
-  const {getObject} = petitions()
 
+  const {getObject} = petitions()
+  const {useremail} = userInfo()
   const { client,company, invoiceNumber, amount, onInputChange } = useForm(initialValue)
 
   useEffect(() => {
     getObject('/company',setCompanies)
     getObject('/client',setClients)
   }, [])
-  let token = ''
-  let useremail = ''
-  token = localStorage.getItem('token');
-  if (token) {
-    const decoded = jwtDecode(token);
-    useremail = decoded.email  
-  }
-  
+
   return (
     <div className='newContainer'>
     <div className='newPageContainer'>

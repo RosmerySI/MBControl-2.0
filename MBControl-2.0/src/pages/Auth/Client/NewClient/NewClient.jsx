@@ -1,38 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { NumericFormat } from 'react-number-format';
-import PropTypes from 'prop-types';
 import { InputText } from '../../../../components/Atoms/Inputs/InputText';
 import { InputRfc } from '../../../../components/Atoms/Inputs/InputRfc';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
 import { InputSelect } from '../../../../components/Atoms/Inputs/InputSelect';
-import { useForm } from '../../../../utilities/hook/useForm';
-import { petitions } from '../../../../services/api/petitions'
-import { Button, InputAdornment, TextField } from '@mui/material';
-import { jwtDecode } from 'jwt-decode';
-import '../../newStyle.css'
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, ...other } = props;
-  return (
-    <NumericFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={(values)=>{onChange({target:{name:props.name,value:values.value}})}}
-      decimalScale={2}
-      isAllowed={(values) => {
-        const { floatValue } = values;
-        if (!floatValue) return true
-        return floatValue < 100;
-      }}
-    />
-  );
-}
-NumberFormatCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
+import NumberFormatCustom from '../../../../components/Atoms/NumberFormat/NumberFormat';
+import { userInfo } from '../../../../utilities/userInfo/userInfo';
+import { useForm } from '../../../../utilities/hook/useForm';
+import { petitions } from '../../../../services/api/petitions';
+import { Button, InputAdornment, TextField } from '@mui/material';
+import '../../newStyle.css';
+
 const initialValue = {
   name: '',
   rfc: '',
@@ -40,8 +19,7 @@ const initialValue = {
 }
 export const NewClient = () => {
 
-  const { clientId } = useParams()
-  
+  const { clientId } = useParams()  
 
   const [models, setModels] = useState()
   const [promoters, setPromoters] = useState() 
@@ -90,6 +68,8 @@ export const NewClient = () => {
     rfc: checkedRfc === false ? [(value) => value?.match(rfcMoral), 'El rfc debe tener el formato correcto y tener 12 caracteres'] : [(value) => value?.match(rfcFisica), 'El rfc debe tener el formato correcto y tener 13 caracteres'],
   }
 const { name, rfc,promoter, nameValid, rfcValid, onInputChange } = useForm(initialValue, formValidations)
+
+const { useremail } = userInfo()
   
   let promotersObject = []
   promoters?.forEach(item => {
@@ -101,13 +81,7 @@ const { name, rfc,promoter, nameValid, rfcValid, onInputChange } = useForm(initi
     ]
     promotersObject.push(element)
   });
-  let token = ''
-  let useremail = ''
-  token = localStorage.getItem('token');
-  if (token) {
-    const decoded = jwtDecode(token);
-    useremail = decoded.email  
-  }
+ 
   const onToggleModels = (name) => {
     let toggleModelsCopy = { ...toggleModels }
     toggleModelsCopy[name] = !toggleModelsCopy[name]

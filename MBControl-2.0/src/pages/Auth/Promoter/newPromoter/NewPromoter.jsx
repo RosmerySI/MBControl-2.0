@@ -8,45 +8,10 @@ import { InputSelect } from '../../../../components/Atoms/Inputs/InputSelect';
 import { InputEmail } from '../../../../components/Atoms/Inputs/InputEmail';
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
 import { InputCheckBox } from '../../../../components/Atoms/Inputs/InputCheckBox';
-import { NumericFormat } from 'react-number-format';
-import PropTypes from 'prop-types';
-import { jwtDecode } from 'jwt-decode';
-import '../../newStyle.css'
+import { userInfo } from '../../../../utilities/userInfo/userInfo';
+import { ColumnsPromoter } from '../../../../components/Atoms/Columns/ColumnsPromoter';
+import '../../newStyle.css';
 
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, ...other } = props;
-
-  return (
-    <NumericFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value,
-          },
-        });
-      }}
-
-      decimalScale={2}
-      isAllowed={(values) => {
-        const { floatValue } = values;
-        if (!floatValue) return true
-        return floatValue < 100;
-      }}
-
-
-
-    />
-  );
-}
-NumberFormatCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-
-};
 const initialValue = {
   name: '',
   rfc: '',
@@ -61,8 +26,8 @@ export const NewPromoter = () => {
   const [models, setModels] = useState()
   const [G3, setG3] = useState()
   const [links, setLinks] = useState()
-  const [toggleModels, setToggleModels] = useState()
-  const [comision, setComision] = useState({})
+  const [toggleModelsPromoter, setToggleModelsPromoter] = useState()
+  const [comisionPromoter, setComisionPromoter] = useState({})
   const [comercialCost, setComercialCost] = useState({})
   const [dataTable, setDataTable] = useState({})
   const [checkedEmail, setCheckedEmail] = useState(false);
@@ -76,45 +41,34 @@ export const NewPromoter = () => {
   };
 
   const { getObject } = petitions()
-
-  let useremail
-  let userrole
-  let username
-  let token = localStorage.getItem('token');
-  if (token) {
-    const decoded = jwtDecode(token);
-    useremail = decoded.email
-    userrole = decoded.Roles
-    username = decoded.name
-
-  }
+  const { useremail,userrole,username } = userInfo()  
 
   const settingInitialValues = async () => {
     await getObject('/model', setModels)
     await getObject('/G3', setG3)
     await getObject('/user', setLinks)
-    let comisionCopy = { ...comision }
+    let comisionPromoterCopy = { ...comisionPromoter }
     let comercialCostCopy = { ...comercialCost }
-    let toggleModelsCopy = { ...toggleModels }
+    let toggleModelsPromoterCopy = { ...toggleModelsPromoter }
     models?.forEach(element => {
-      comisionCopy[`model${element.name}`] = 0
+      comisionPromoterCopy[`model${element.name}`] = 0
       comercialCostCopy[`comercialCost${element.name}`] = 0
-      toggleModelsCopy[element.name] = false
+      toggleModelsPromoterCopy[element.name] = false
     });
-    setComision(comisionCopy)
+    setComisionPromoter(comisionPromoterCopy)
     setComercialCost(comercialCostCopy)
-    setToggleModels(toggleModelsCopy)
+    setToggleModelsPromoter(toggleModelsPromoterCopy)
     setDataTable({
-      comision: comisionCopy,
+      comisionPromoter: comisionPromoterCopy,
       comercialCost: comercialCostCopy,
-      toggleModels: toggleModelsCopy,
+      toggleModelsPromoter: toggleModelsPromoterCopy,
       userEmail: useremail,
     })
-
   }
   useEffect(() => {
     settingInitialValues()
   }, [])
+
   const emailForm = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const phoneForm = /^\d{10}$/;
   const formValidations = {
@@ -129,14 +83,11 @@ export const NewPromoter = () => {
   if (userrole !== 'Enlace') {
     links?.forEach(item => {
       if (item.roles !== null) {
-
         let element = 
           {
             name: item.userName,
             email: item.email,
           }
-        
-
         linksObject.push(element)
       }
     })
@@ -150,32 +101,30 @@ export const NewPromoter = () => {
     linksObject.push(element)
   }
 
-  const onToggleModels = (name) => {
-    let toggleModelsCopy = { ...toggleModels }
-    toggleModelsCopy[name] = !toggleModelsCopy[name]
-    setToggleModels(toggleModelsCopy)
+  const onToggleModelsPromoter = (name) => {
+    let toggleModelsPromoterCopy = { ...toggleModelsPromoter }
+    toggleModelsPromoterCopy[name] = !toggleModelsPromoterCopy[name]
+    setToggleModelsPromoter(toggleModelsPromoterCopy)
     setDataTable({
-      comision: comision,
+      comisionPromoter: comisionPromoter,
       comercialCost: comercialCost,
-      toggleModels: toggleModelsCopy,
+      toggleModelsPromoter: toggleModelsPromoterCopy,
       userEmail: useremail,
     })
   }
-  const onComisionInputChange = ({ target }) => {
-
+  const onComisionPromoterInputChange = ({ target }) => {
     const { name, value } = target;
-
-    setComision({
-      ...comision,
+    setComisionPromoter({
+      ...comisionPromoter,
       [name]: value
     });
     setDataTable({
-      comision: {
-        ...comision,
+      comisionPromoter: {
+        ...comisionPromoter,
         [name]: value
       },
       comercialCost: comercialCost,
-      toggleModels: toggleModels,
+      toggleModelsPromoter: toggleModelsPromoter,
       userEmail: useremail,
     })
   }
@@ -190,87 +139,19 @@ export const NewPromoter = () => {
         ...comercialCost,
         [name]: value
       },
-      comision: comision,
-      toggleModels: toggleModels,
+      comisionPromoter: comisionPromoter,
+      toggleModelsPromoter: toggleModelsPromoter,
       userEmail: useremail,
     })
   }
-
-  let columns = [
-    {
-      field: 'name',
-      headerName: 'Productos',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'Costo Comercial',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 150,
-      renderCell: (cellvalues) => {
-        return (
-          <TextField
-            name={`comercialCost${cellvalues.row.name}`}
-            value={comercialCost[`comercialCost${cellvalues.row.name}`] || 0}
-            onChange={onComercialCostInputChange}
-            autoComplete='off'
-            sx={{ width: '180px', padding: '0px', '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 } }}
-            InputProps={{
-              inputComponent: NumberFormatCustom,
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            }}>
-          </TextField>
-        )
-      }
-    },
-    {
-      field: 'Comisión',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 150,
-      renderCell: (cellvalues) => {
-        return (
-          <TextField
-            name={`model${cellvalues.row.name}`}
-            value={comision[`model${cellvalues.row.name}`] || 0}
-            onChange={onComisionInputChange}
-            autoComplete='off'
-            sx={{ width: '180px', padding: '0px', '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 } }}
-            InputProps={{
-              inputComponent: NumberFormatCustom,
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            }}
-          >
-          </TextField>
-        )
-      }
-    },
-    {
-      field: 'Piso / %',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 100,
-      renderCell: (cellvalues) => {
-        return (
-          <Button
-            style={{
-              backgroundColor: "white",
-              boxShadow: 'none',
-              width: '10px',
-              padding: 0,
-            }}
-            variant='contained'
-            name={cellvalues.row.name}
-            onClick={() => onToggleModels(cellvalues.row.name)}>
-            <p style={{ color: 'gray' }}>
-              {toggleModels && toggleModels[cellvalues.row.name] === true ? 'Piso' : '%'}
-            </p>
-          </Button>
-        )
-      }
-    },
-  ]
+  const {columnsPromoter} = ColumnsPromoter(
+    comercialCost,
+    onComercialCostInputChange,
+    comisionPromoter,
+    onComisionPromoterInputChange,
+    toggleModelsPromoter,
+    onToggleModelsPromoter
+  )  
   return (
     <div className='newContainer'>
       <div className='newPageContainer'>
@@ -286,7 +167,7 @@ export const NewPromoter = () => {
             nameValid={nameValid} 
             phoneValid={''} 
             onInputChange={onInputChange} />
-            <ModelsTable rows={models} columns={columns} />
+            <ModelsTable rows={models} columns={columnsPromoter} />
             <div style={{ width: '100%', height: 'max-content', display: 'flex', 
             flexDirection: 'row', alignItems: 'center',justifyContent:'space-between'}}>
               <InputSelect 

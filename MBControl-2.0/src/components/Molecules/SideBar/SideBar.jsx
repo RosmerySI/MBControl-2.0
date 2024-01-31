@@ -51,12 +51,12 @@ export const SideBar = ({ roles, sessionName, setSessionName }) => {
 
         {
             name: 'Calculadora de Comisiones',
-            route: '/calc',
+            route: '/calccomision',
             icon: <Calculate />
         },
         {
             name: 'Calculadora de Retorno',
-            route: '/calcretorno',
+            route: '/calcreturn',
             icon: <Calculate />
         },
       
