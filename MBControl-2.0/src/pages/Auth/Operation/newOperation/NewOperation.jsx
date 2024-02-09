@@ -11,10 +11,9 @@ import { userInfo } from '../../../../utilities/userInfo/userInfo';
 
 const initialValue = {
   client: '',
-  company: '',
-  folio: '',
-  invoice: '',
+  company: '',  
   amount: '',
+  invoice:[],
   model:[], 
 }
 
@@ -22,31 +21,41 @@ export const NewOperation = () => {
   
   const [toggleInvoice, setToggleInvoice] = useState(false);
   const [toggleTotal, setToggleTotal] = useState(false);
-  const [companies, setCompanies] = useState()
-  const [clients, setClients] = useState()
-  const [invoices, setInvoices] = useState()
-  const [models, setModels] = useState()
-  const [incomeProviders, setIncomeProviders] = useState()
-  const [outcomeProviders, setOutcomeProviders] = useState()
-  const [outcomeProviderById, setOutcomeProvidersById] = useState()
-  const [incomeProvider ,  setIncomeProvider ]=useState()
-  const [outcomeProvider ,  setOutcomeProvider ]=useState()
-  const [formData, setFormData] = useState({})
 
-  const {getObject} = petitions()
-  const {useremail} = userInfo()
-  const {client,company,folio,invoice,amount,model,onInputChange}=useForm(initialValue)  
+  const [companies, setCompanies] = useState();
+  const [clients, setClients] = useState();
+  const [invoices, setInvoices] = useState();
 
+  const [models, setModels] = useState();
+
+  const [folio, setFolio] = useState()
+
+  const [incomeProviders, setIncomeProviders] = useState();
+  const [outcomeProviders, setOutcomeProviders] = useState();
+  const [outcomeProviderById, setOutcomeProvidersById] = useState();
+  const [incomeProvider ,  setIncomeProvider ]=useState();
+  const [outcomeProvider ,  setOutcomeProvider ]=useState();
+
+ 
+  const [tableProductAmount, setTableProductAmount] = useState({});
+
+  const [dataTable, setDataTable] = useState();
+
+  const {getObject} = petitions();
+  const {useremail} = userInfo();
+  const {client,company,amount,invoice,model,onInputChange}=useForm(initialValue);  
+  
   useEffect(() => {
     getObject('/company', setCompanies)
     getObject('/client', setClients)
     getObject('/invoice', setInvoices)
     getObject('/model', setModels)
     getObject('/providerInCome', setIncomeProviders)
-    getObject('/providerOutCome', setOutcomeProviders)
+    getObject(`/operation/nextFolio/${useremail}`, setFolio)
   }, [])
 
   let modelProvider = []
+  
   model?.forEach(element => {
     models?.forEach(item => {
       if (element === item.id) {
@@ -61,62 +70,97 @@ export const NewOperation = () => {
   
   useEffect(() => {
     if (models) {
-      let formDataCopy = { ...formData }
+      
+      let tableProductAmountCopy = { ...tableProductAmount }
       let incomeProviderCopy={...incomeProvider}
       let outcomeProviderCopy={...outcomeProvider}
-      models.forEach(element => {
-        formDataCopy[element.name] = 0
-        formDataCopy['modelId'] = element.id
+
+      models.forEach(element => {        
+        tableProductAmountCopy[element.name] = 0
         incomeProviderCopy[element.name]=''      
         outcomeProviderCopy[element.name]=''
       });
-      setFormData(formDataCopy)
+
+      setTableProductAmount(tableProductAmountCopy)
       setIncomeProvider(incomeProviderCopy)
       setOutcomeProvider(outcomeProviderCopy)
+      setDataTable({       
+        return:tableProductAmountCopy,
+        providerIncomeId:incomeProviderCopy,
+        providerOutcomeId:outcomeProviderCopy
+      })
     }
   }, [models]);
-
-  const handleIncomeProviderChange=event=>{
-    setIncomeProvider(formState => ({
-      ...formState,
+ 
+  const handleTableProductAmountChange=(event)=>{
+      setTableProductAmount({
+      ...tableProductAmount,
       [event.target.name]: event.target.value
-    }));
+    });
+    setDataTable({
+      return: {
+        ...tableProductAmount,
+        [event.target.name]: event.target.value
+      },
+      providerIncomeId:incomeProvider,
+      providerOutcomeId:outcomeProvider,     
+    })
+  };
+  const handleIncomeProviderChange=(event)=>{
+    setIncomeProvider({
+      ...incomeProvider,
+      [event.target.name]: event.target.value
+    });
+    setDataTable({
+     
+      return:tableProductAmount,      
+      providerIncomeId:{
+        ...incomeProvider,
+        [event.target.name]: event.target.value
+      },
+      providerOutcomeId:outcomeProvider,     
+    })   
   };
 
   const handleOutcomeProviderChange = (event) => {    
-    setOutcomeProvider(formState => ({
-      ...formState,
+    setOutcomeProvider({
+      ...outcomeProvider,
       [event.target.name]: event.target.value
-    }));
-   
+    });
+    setDataTable({
+      return:tableProductAmount,      
+      providerIncomeId:incomeProvider,
+      providerOutcomeId:{
+        ...outcomeProvider,
+        [event.target.name]: event.target.value
+      },     
+    })   
   };
 
   const getOutcomeProvider = async(myId) => {
- 
-    //const modelIndex=models?.findIndex(item=>item.id==myId)
-     getObject(`/providerOutCome/models/${myId}`,setOutcomeProvidersById) 
-    
-    ;
+    getObject(`/providerOutCome/models/${myId}`,setOutcomeProvidersById);
   };
 
   const {columns} = Columns(
     incomeProvider,
     outcomeProvider,
-    formData,
+    tableProductAmount,
     incomeProviders,
     outcomeProviderById,
-    onInputChange,
+    handleTableProductAmountChange,
     handleIncomeProviderChange,
     handleOutcomeProviderChange,
     getOutcomeProvider
   )
+
   const handleToggleInvoiceChange = () => {
     setToggleInvoice(!toggleInvoice);
   }
+
   const handleToggleTotalChange = () => {
     setToggleTotal(!toggleTotal);
   }
-  
+
   return (
     <div className='newContainerOperation'>
       <div className='newOperationContainer'>
@@ -140,6 +184,7 @@ export const NewOperation = () => {
             client={client}
             company={undefined}
             invoice={undefined}
+            model={undefined}
             onInputChange={onInputChange}
             labelText={'Cliente'} />
           <InputSelect
@@ -150,9 +195,11 @@ export const NewOperation = () => {
             client={undefined}
             company={company}
             invoice={undefined}
+            model={undefined}
             onInputChange={onInputChange}
             labelText={'Empresa'} />
           <InputText
+            labelText
             placeholder={'Folio'}
             name={undefined}
             phone={undefined}
@@ -172,6 +219,7 @@ export const NewOperation = () => {
               client={undefined}
               company={undefined}
               invoice={invoice}
+              model={undefined}
               onInputChange={onInputChange}
               labelText={'Factura'} />
           }
@@ -212,7 +260,7 @@ export const NewOperation = () => {
           labelText={'Productos'} />
         {modelProvider&&columns&&<ModelsTable rows={modelProvider} columns={columns}/>}      
         <SubmitButton 
-        data={{client,company,folio,invoice,amount,toggleTotal,model,formData}} 
+        data={{client,company,folio,invoice,amount,toggleTotal,useremail,dataTable}} 
         firstButtonText={'Crear'} 
         secondButtonText={''} 
         setAuth={''} 

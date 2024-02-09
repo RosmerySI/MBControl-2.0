@@ -20,7 +20,7 @@
     align-items: center;
 }
 .authUserFather{
-    width:45%;
+    width:32%;
     display: flex;
     flex-direction: row;
     justify-content: right;
@@ -42,7 +42,7 @@
     cursor: pointer;
     margin-left: 5px;
 }
-h2{
+.h2{
     width: 13%;
     margin: 0px;
     display: flex;

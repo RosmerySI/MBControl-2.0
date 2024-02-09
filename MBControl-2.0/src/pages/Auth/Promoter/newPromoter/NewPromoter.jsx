@@ -33,15 +33,19 @@ export const NewPromoter = () => {
   const [checkedEmail, setCheckedEmail] = useState(false);
   const [checkedWhatsapp, setCheckedWhatsapp] = useState(false);
 
-  const handleChangeEmail = () => {
-    setCheckedEmail(!checkedEmail);
-  };
-  const handleChangeWhatsapp = () => {
-    setCheckedWhatsapp(!checkedWhatsapp);
-  };
-
   const { getObject } = petitions()
-  const { useremail,userrole,username } = userInfo()  
+
+  const { useremail,userrole,username } = userInfo()
+
+  const emailForm = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const phoneForm = /^\d{10}$/;
+
+  const formValidations = {
+    name: [(value) => value?.length >= 2, 'El nombre de 2 o más caracteres es obligatorio'],
+    phone: [(value) => value?.match(phoneForm), 'Solo diez dígitos'],
+    email: [(value) => value?.match(emailForm), 'contener @ y terminar en .com'],
+  }
+  const{name,g3,link,phone,email,nameValid,phoneValid,emailValid,onInputChange}=useForm(initialValue, formValidations)
 
   const settingInitialValues = async () => {
     await getObject('/model', setModels)
@@ -65,19 +69,10 @@ export const NewPromoter = () => {
       userEmail: useremail,
     })
   }
+
   useEffect(() => {
     settingInitialValues()
-  }, [])
-
-  const emailForm = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const phoneForm = /^\d{10}$/;
-  const formValidations = {
-    name: [(value) => value?.length >= 2, 'El nombre de 2 o más caracteres es obligatorio'],
-    phone: [(value) => value?.match(phoneForm), 'Solo diez dígitos'],
-    email: [(value) => value?.match(emailForm), 'contener @ y terminar en .com'],
-
-  }
-  const { name, g3, link, phone, email, nameValid, phoneValid, emailValid, onInputChange } = useForm(initialValue, formValidations)
+  }, [])  
 
   let linksObject=[]
   if (userrole !== 'Enlace') {
@@ -144,6 +139,14 @@ export const NewPromoter = () => {
       userEmail: useremail,
     })
   }
+  
+  const handleChangeEmail = () => {
+    setCheckedEmail(!checkedEmail);
+  };
+  const handleChangeWhatsapp = () => {
+    setCheckedWhatsapp(!checkedWhatsapp);
+  };
+
   const {columnsPromoter} = ColumnsPromoter(
     comercialCost,
     onComercialCostInputChange,
@@ -180,7 +183,7 @@ export const NewPromoter = () => {
               invoice={undefined}
               model={undefined} 
               onInputChange={onInputChange} 
-              labelText={'Empresa'} />
+              labelText={'G3'} />
               <InputSelect 
               object={linksObject} 
               promoter={undefined} 

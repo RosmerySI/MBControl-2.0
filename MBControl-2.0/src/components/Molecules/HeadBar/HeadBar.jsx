@@ -11,7 +11,7 @@ export const HeadBar = ({setAuth,user,sessionName}) => {
   
   return (
     <div className='headBarFather'>
-      <h2>MB Control</h2>      
+      <h2 className='h2'>MB Control</h2>      
       <div className='headBarContainer'>
         <div className='sessionNameContainer'>
           <h1>{sessionName}</h1>

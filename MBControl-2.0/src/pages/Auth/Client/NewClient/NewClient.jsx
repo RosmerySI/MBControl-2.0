@@ -5,12 +5,13 @@ import { InputRfc } from '../../../../components/Atoms/Inputs/InputRfc';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
 import { InputSelect } from '../../../../components/Atoms/Inputs/InputSelect';
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
-import NumberFormatCustom from '../../../../components/Atoms/NumberFormat/NumberFormat';
+import { NumberFormatPercent } from '../../../../components/Atoms/NumberFormat/NumberFormat';
 import { userInfo } from '../../../../utilities/userInfo/userInfo';
 import { useForm } from '../../../../utilities/hook/useForm';
 import { petitions } from '../../../../services/api/petitions';
 import { Button, InputAdornment, TextField } from '@mui/material';
 import '../../newStyle.css';
+import { ColumnsClient } from '../../../../components/Atoms/Columns/ColumnsClient';
 
 const initialValue = {
   name: '',
@@ -23,11 +24,24 @@ export const NewClient = () => {
 
   const [models, setModels] = useState()
   const [promoters, setPromoters] = useState() 
- 
-  const [toggleModels, setToggleModels] = useState()
+  const [comisionClient, setComisionClient] = useState({})
+  const [toggleModelsClient, setToggleModelsClient] = useState()
   const [formData, setFormData] = useState({}) 
   const [dataTable, setDataTable] = useState({}) 
   const [clientToEdit, setClientToEdit] = useState() 
+  const [checkedRfc, setCheckedRfc] = useState(false);
+
+  const handleChangeRfc = () => {setCheckedRfc(!checkedRfc)};
+  const rfcMoral = /^[A-ZÑ&]{3}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])(?:[A-Z\d]{3})/;
+  const rfcFisica = /^[A-ZÑ&]{4}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])(?:[A-Z\d]{3})/;
+  
+  const formValidations = {
+    name: [(value) => value?.length >= 2, 'El nombre de 2 o más caracteres es obligatorio'],
+    rfc: checkedRfc === false ? [(value) => value?.match(rfcMoral), 'El rfc debe tener el formato correcto y tener 12 caracteres'] : [(value) => value?.match(rfcFisica), 'El rfc debe tener el formato correcto y tener 13 caracteres'],
+  }
+  const {name,rfc,promoter,nameValid,rfcValid,onInputChange}=useForm(initialValue,formValidations)
+
+  const { useremail } = userInfo()
     
   const { getObject } = petitions()
   
@@ -39,37 +53,25 @@ export const NewClient = () => {
     }else{
       await getObject('/model', setModels)
       await  getObject('/promoter',setPromoters)
-      let formDataCopy = { ...formData }
-      let toggleModelsCopy = { ...toggleModels }
+      let comisionClientCopy = { ...comisionClient }      
+      let toggleModelsClientCopy = { ...toggleModelsClient }
       models?.forEach(element => {
-        formDataCopy[`model${element.name}`] = 0
-        toggleModelsCopy[element.name] = false
+      comisionClientCopy[`model${element.name}`] = 0      
+      toggleModelsClientCopy[element.name] = false
       });
-      setFormData(formDataCopy)
-      setToggleModels(toggleModelsCopy)
+      setComisionClient(comisionClientCopy)    
+      setToggleModelsClient(toggleModelsClientCopy)
       setDataTable({
-        formData: formDataCopy,
-        toggleModels: toggleModelsCopy,
-        useremail:useremail,      
-      })  
+      comisionClient: comisionClientCopy,      
+      toggleModelsClient: toggleModelsClientCopy,
+      userEmail: useremail,
+    }) 
     }
-    
   }
  
   useEffect(() => {
     settingInitialValues()   
-  }, [])  
-  const [checkedRfc, setCheckedRfc] = useState(false);
-  const handleChangeRfc = () => {setCheckedRfc(!checkedRfc)};
-  const rfcMoral = /^[A-ZÑ&]{3}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])(?:[A-Z\d]{3})/;
-  const rfcFisica = /^[A-ZÑ&]{4}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])(?:[A-Z\d]{3})/;
-  const formValidations = {
-    name: [(value) => value?.length >= 2, 'El nombre de 2 o más caracteres es obligatorio'],
-    rfc: checkedRfc === false ? [(value) => value?.match(rfcMoral), 'El rfc debe tener el formato correcto y tener 12 caracteres'] : [(value) => value?.match(rfcFisica), 'El rfc debe tener el formato correcto y tener 13 caracteres'],
-  }
-const { name, rfc,promoter, nameValid, rfcValid, onInputChange } = useForm(initialValue, formValidations)
-
-const { useremail } = userInfo()
+  }, [])
   
   let promotersObject = []
   promoters?.forEach(item => {
@@ -82,90 +84,40 @@ const { useremail } = userInfo()
     promotersObject.push(element)
   });
  
-  const onToggleModels = (name) => {
-    let toggleModelsCopy = { ...toggleModels }
-    toggleModelsCopy[name] = !toggleModelsCopy[name]
-    setToggleModels(toggleModelsCopy)
+  const onToggleModelsClient = (name) => {
+    let toggleModelsClientCopy = { ...toggleModelsClient }
+    toggleModelsClientCopy[name] = !toggleModelsClientCopy[name]
+    setToggleModelsClient(toggleModelsClientCopy)
     setDataTable({
-      formData: formData,
-      toggleModels: toggleModelsCopy,
+      comision: comisionClient,
+      toggleModelsClient: toggleModelsClientCopy,
       useremail:useremail,      
     })
   }
-  const onComisionInputChange = ({ target }) => {
+  const onComisionClientInputChange = ({ target }) => {
     const { name, value } = target;
-    setFormData({
-      ...formData,
+    setComisionClient({
+      ...comisionClient,
       [name]: value
     });
     setDataTable({
-      formData:{
-        ...formData,
+      comision: {
+        ...comisionClient,
         [name]: value
       },
-      toggleModels: toggleModels,
+      toggleModelsClient: toggleModelsClient,
       useremail:useremail,      
     })
   }
+  
+  const { columnsClient } = ColumnsClient(
+    comisionClient,
+    onComisionClientInputChange,
+    onToggleModelsClient,
+    toggleModelsClient
+  )
 
-  let columns = [
-    {
-      field: 'name',
-      headerName: 'Productos',
-      type: 'string',
-      width: 150,
-    },
-    {
-      field: 'Comisión',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 150,
-      renderCell: (cellvalues) => {
-        return (
-          <TextField
-            name={`model${cellvalues.row.name}`}
-            value={formData[`model${cellvalues.row.name}`]||0}
-            onChange={onComisionInputChange}
-            autoComplete="off"
-            sx={{ width:'180px', padding:'0px','& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input':{padding:0}}}
-            InputProps={{
-              inputComponent: NumberFormatCustom,
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            }}
-          >
-          </TextField>
-        )
-      }
-    },
-    {
-      field: 'Sub-Total/Total',
-      disableColumnMenu: true,
-      sortable: false,
-      width: 140,      
-      renderCell: (cellvalues) => {       
-        return (                
-          <Button variant='contained'name={cellvalues.row.name}
-            style={{ 
-              backgroundColor: "white",
-              boxShadow: 'none',
-              width: '180px',
-              padding: 0,
-              display: 'flex',
-              justifyContent: 'center'
-            }}           
-            onClick={()=>{onToggleModels(cellvalues.row.name)}}
-          >          
-          <p style={{color:'gray'}}>
-          {toggleModels&&
-          toggleModels[cellvalues.row.name] === true?'Sub-Total':'Total'
-          }</p>
-          </Button>                  
-        )        
-      }       
-    },
-  ]
-
-return (
+  return (
   <div className='newContainer'>
     <div className='newPageContainer'>
     {       
@@ -186,7 +138,7 @@ return (
       rfcValid={rfcValid} 
       onInputChange={onInputChange} 
       handleChangeRfc={handleChangeRfc}/>
-      <ModelsTable rows={models} columns={columns}/>
+      <ModelsTable rows={models} columns={columnsClient}/>
       <InputSelect 
       object={promoters} 
       promoter={promoter} 
