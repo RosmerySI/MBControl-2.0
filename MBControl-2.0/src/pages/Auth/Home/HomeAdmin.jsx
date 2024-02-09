@@ -4,6 +4,7 @@ import { LinkCarousel } from '../../../components/Atoms/Carousel/Carousel'
 import client from '../../../assets/images/user.png'
 import operation from '../../../assets/images/cross.png'
 import promoter from '../../../assets/images/astronaut.png'
+import { ReportModal } from '../../../components/Atoms/ReportModal/ReportModal'
 import './home.CSS'
 
 export const HomeAdmin = ({setSessionName}) => {
@@ -22,14 +23,10 @@ export const HomeAdmin = ({setSessionName}) => {
           thirdText={'Nuevo Promotor'}
           thirdRoute={'/newpromoter'}
           setSessionName={setSessionName}
-          />
-        
+          />        
         <LinkCarousel />
-        <div className='buttonHomeContainer'>
-          <button className='button'>REPORTE</button>
-        </div>
+        <ReportModal/>        
       </div>
-
     </div>
   )
 }
