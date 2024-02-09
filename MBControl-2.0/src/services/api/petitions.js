@@ -1,6 +1,6 @@
-import React from "react";
 import mbControlApi from "./mbControlApi";
 import { manageError } from "../../utilities/manageError/manageError";
+import { modalSuccess } from "../../utilities/modals/modals";
 
 export const petitions = () => {
   const getObject = async (route, setObject) => {
@@ -15,7 +15,7 @@ export const petitions = () => {
       manageError(status, variable);
     }
   };
-  const postObject = async (route, form, setAuth,navigate) => {   
+  const postObject = async (route, form, setAuth,navigate,setObject) => {   
     try {
     const { data } = await mbControlApi.post(route, form);
     if(route==='user/login'){
@@ -25,16 +25,34 @@ export const petitions = () => {
     }
     if(route==='client'){
     navigate('/clients')
+    modalSuccess('El cliente se creó con exito')
     }
     if(route==='promoter'){
     navigate('/promoters')
+    modalSuccess('El promotor se creó con exito')
     }      
     if(route==='invoice'){
     navigate('/invoices')
+    modalSuccess('La factura se creó con exito')
+    }      
+    if(route==='operation'){
+    navigate('/operations')
+    modalSuccess('La operación se creó con exito')
+    }      
+    if(route==='operation/calculator'){
+      setObject(data)
+    }      
+    if(route==='providerInCome'){
+      navigate('/incomeProviders')
+      modalSuccess('El proveedor se creó con exito')
+    }      
+    if(route==='providerOutCome'){
+      navigate('/outcomeProviders')
+      modalSuccess('El proveedor se creó con exito')
     }      
     } catch (error) {
       console.log(error)
-      let status = error.response?.status;
+      let status = error.response?.request.status;
       let variable = error.response?.data;
       manageError(status, variable);
     }

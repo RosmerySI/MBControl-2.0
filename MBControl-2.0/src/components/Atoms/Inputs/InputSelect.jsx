@@ -13,17 +13,19 @@ export const InputSelect=({object,promoter,g3,link,client,company,invoice,model,
                       link!==undefined?'link':
                       client!==undefined?'client':
                       company!==undefined?'company':
-                      invoice!==undefined?'invoice':'model'
+                      invoice!==undefined?'invoice':
+                      model!==undefined?'model':'model'
                     }
                 value={promoter!==undefined?promoter:                    
                        g3!==undefined?g3:
                        link!==undefined?link:
                        client!==undefined?client:
                        company!==undefined?company:
-                       invoice!==undefined?invoice:model}
+                       invoice!==undefined?invoice:
+                       model!==undefined&&model}
                 onChange={onInputChange}
-                SelectProps={model&&{multiple:true}}
-                sx={{ width: '80%' }}>
+                SelectProps={{multiple:model?true:invoice?true:false}}
+                sx={{ width: '100%' }}>
                 {
                 object?.map((selected) => (
                     <MenuItem key={selected.id?selected.id:selected.email} value={selected.id?selected.id:selected.email}>

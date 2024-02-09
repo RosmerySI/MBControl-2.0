@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {  ModalOperation } from '../../Modal/Modal';
+import { ModalOperation } from '../../Modal/ModalOperation';
 import './singleOperation.css'
+
 
 export const SingleOperation = ({text, img,route,setSessionName}) => {
   

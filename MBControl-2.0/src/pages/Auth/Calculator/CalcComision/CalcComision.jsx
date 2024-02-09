@@ -19,137 +19,136 @@ const initialValue = {
 }
 
 export const CalcComision = () => {
+
   const [toggleReal, setToggleReal] = useState(false);
   const [clients, setClients] = useState()
   const [checkedInvoice, setCheckedInvoice] = useState(false)
   const [models, setModels] = useState()
+
   const [incomeProviders, setIncomeProviders] = useState()
   const [incomeProvider, setIncomeProvider] = useState()
-  
   const [outcomeProvider, setOutcomeProvider] = useState()
   const [outcomeProviderById, setOutcomeProvidersById] = useState()
+
   const [toggleModelsPromoter, setToggleModelsPromoter] = useState()
   const [toggleModelsClient, setToggleModelsClient] = useState()
+ 
   const [comisionPromoter, setComisionPromoter] = useState({})
   const [comisionClient, setComisionClient] = useState({})
   const [comercialCost, setComercialCost] = useState({})
+
   const [dataTablePromoter, setDataTablePromoter] = useState({})
   const [dataTableClient, setDataTableClient] = useState({})
-  const [formData, setFormData] = useState({})
 
+  const [dataTableProviders, setDataTableProviders] = useState({})
+  const [tableProductAmount, setTableProductAmount] = useState({})
+  
   const { client, amount, model, onInputChange } = useForm(initialValue)
 
-
   const { getObject } = petitions()
+
+  const { useremail } = userInfo()
   
-  const {useremail} =userInfo()
-  
-  useEffect(() => {
-    if (models) {
-      let formDataCopy = { ...formData }
-      let incomeProviderCopy = { ...incomeProvider }
-      let outcomeProviderCopy = { ...outcomeProvider }
-      models.forEach(element => {
-        formDataCopy[element.name] = 0
-        formDataCopy['modelId'] = element.id
-        incomeProviderCopy[element.name] = ''
-        outcomeProviderCopy[element.name] = ''
-      });
-      setFormData(formDataCopy)
-      setIncomeProvider(incomeProviderCopy)
-      setOutcomeProvider(outcomeProviderCopy)
-    }
-  }, [models]);
   useEffect(() => {
     getObject('/client', setClients)
     getObject('/model', setModels)
     getObject('/providerInCome', setIncomeProviders)
-   
-    let comisionPromoterCopy = { ...comisionPromoter }
-    let comisionClientCopy = { ...comisionClient }
-    let comercialCostCopy = { ...comercialCost }
-    let toggleModelsPromoterCopy = { ...toggleModelsPromoter }
-    let toggleModelsClientCopy = { ...toggleModelsClient }
-    models?.forEach(element => {
-      comisionPromoterCopy[`model${element.name}`] = 0
-      comisionClientCopy[`model${element.name}`] = 0
-      comercialCostCopy[`comercialCost${element.name}`] = 0
-      toggleModelsPromoterCopy[element.name] = false
-      toggleModelsClientCopy[element.name] = false
-    });
-    setComisionPromoter(comisionPromoterCopy)
-    setComisionPromoter(comisionClientCopy)
-    setComercialCost(comercialCostCopy)
-    setToggleModelsPromoter(toggleModelsPromoterCopy)
-    setToggleModelsPromoter(toggleModelsClientCopy)
-    setDataTablePromoter({
-      comision: comisionPromoterCopy,
-      comercialCost: comercialCostCopy,
-      toggleModelsPromoter: toggleModelsPromoterCopy,
-      userEmail: useremail,
-    })
-    setDataTableClient({
-      comision: comisionClientCopy,
-      toggleModelsPromoter: toggleModelsClientCopy,
-      userEmail: useremail,
-    })
   }, [])
+
+  useEffect(() => {
+    if (models) {
+      
+      let comisionPromoterCopy = { ...comisionPromoter }
+      let comisionClientCopy = { ...comisionClient }
+      let comercialCostCopy = { ...comercialCost }
+      let toggleModelsPromoterCopy = { ...toggleModelsPromoter }
+      let toggleModelsClientCopy = { ...toggleModelsClient }
+      let tableProductAmountCopy = { ...tableProductAmount }
+      let incomeProviderCopy = { ...incomeProvider }
+      let outcomeProviderCopy = { ...outcomeProvider }
+
+      models.forEach(element => {        
+        tableProductAmountCopy[element.name] = 0
+        incomeProviderCopy[element.name] = ''
+        outcomeProviderCopy[element.name] = ''        
+        comisionPromoterCopy[element.name] = 0        
+        comisionClientCopy[element.name] = 0
+        comercialCostCopy[element.name] = 0
+        toggleModelsPromoterCopy[element.name] = true
+        toggleModelsClientCopy[element.name] = false
+      });
+     
+      setComisionPromoter(comisionPromoterCopy)      
+      setComisionClient(comisionClientCopy)
+      setComercialCost(comercialCostCopy)
+      setToggleModelsPromoter(toggleModelsPromoterCopy)
+      setToggleModelsClient(toggleModelsClientCopy)      
+      setTableProductAmount(tableProductAmountCopy)
+      setIncomeProvider(incomeProviderCopy)
+      setOutcomeProvider(outcomeProviderCopy)      
+      setDataTablePromoter({        
+        value:comisionPromoterCopy,       
+        comercialCost:comercialCostCopy,
+        toggleModels:toggleModelsPromoterCopy        
+      })
+      setDataTableClient({        
+        value: comisionClientCopy,
+        toggleModels: toggleModelsClientCopy        
+      })
+      setDataTableProviders({    
+        return: tableProductAmountCopy,
+        providerIncomeId: incomeProviderCopy,
+        providerOutcomeId: outcomeProviderCopy
+      })
+    }
+  }, [models]);
+
   const onToggleModelsPromoter = (name) => {
     let toggleModelsPromoterCopy = { ...toggleModelsPromoter }
     toggleModelsPromoterCopy[name] = !toggleModelsPromoterCopy[name]
     setToggleModelsPromoter(toggleModelsPromoterCopy)
-    setDataTable({
-      comision: comisionPromoter,
+    setDataTablePromoter({
+      value: comisionPromoter,
       comercialCost: comercialCost,
-      toggleModels: toggleModelsPromoterCopy,
-      userEmail: useremail,
+      toggleModels: toggleModelsPromoterCopy      
     })
   }
   const onToggleModelsClient = (name) => {
     let toggleModelsClientCopy = { ...toggleModelsClient }
     toggleModelsClientCopy[name] = !toggleModelsClientCopy[name]
     setToggleModelsClient(toggleModelsClientCopy)
-    setDataTable({
-      comision: comisionClient,
-      comercialCost: comercialCost,
-      toggleModels: toggleModelsClientCopy,
-      userEmail: useremail,
+    setDataTableClient({
+      value: comisionClient,
+      toggleModels: toggleModelsClientCopy    
     })
   }
   const onComisionPromoterInputChange = ({ target }) => {
-
     const { name, value } = target;
-
     setComisionPromoter({
       ...comisionPromoter,
       [name]: value
     });
-    setDataTable({
-      comision: {
+    setDataTablePromoter({
+      value: {
         ...comisionPromoter,
         [name]: value
       },
       comercialCost: comercialCost,
       toggleModels: toggleModelsPromoter,
-      userEmail: useremail,
     })
   }
   const onComisionClientInputChange = ({ target }) => {
-
     const { name, value } = target;
-
     setComisionClient({
       ...comisionClient,
       [name]: value
     });
-    setDataTable({
-      comision: {
+    setDataTableClient({
+      value: {
         ...comisionClient,
         [name]: value
-      },
-      comercialCost: comercialCost,
+      },     
       toggleModels: toggleModelsClient,
-      userEmail: useremail,
     })
   }
   const onComercialCostInputChange = ({ target }) => {
@@ -158,32 +157,60 @@ export const CalcComision = () => {
       ...comercialCost,
       [name]: value
     });
-    setDataTable({
+    setDataTablePromoter({
       comercialCost: {
         ...comercialCost,
         [name]: value
       },
-      comision: comision,
-      toggleModelsPromoter: toggleModelsPromoter,
-      userEmail: useremail,
+      value: comisionPromoter,
+      toggleModelsPromoter: toggleModelsPromoter,     
     })
   }
   const getOutcomeProvider = async (myId) => {
     //const modelIndex=models?.findIndex(item=>item.id==myId)
     getObject(`/providerOutCome/models/${myId}`, setOutcomeProvidersById)
-  };  
+  };
   const handleIncomeProviderChange = event => {
-    setIncomeProvider(formState => ({
-      ...formState,
+    setIncomeProvider({
+      ...incomeProvider,
       [event.target.name]: event.target.value
-    }));
+    });
+    setDataTableProviders({    
+      return: tableProductAmount,
+      providerIncomeId: ({
+        ...incomeProvider,
+        [event.target.name]: event.target.value
+      }),
+      providerOutcomeId: outcomeProvider
+    })
   };
   const handleOutcomeProviderChange = (event) => {
-    setOutcomeProvider(formState => ({
-      ...formState,
+    setOutcomeProvider({
+      ...outcomeProvider,
       [event.target.name]: event.target.value
-    }));
-
+    });
+    setDataTableProviders({    
+      return: tableProductAmount,
+      providerIncomeId:incomeProvider, 
+      providerOutcomeId: ({
+        ...outcomeProvider,
+        [event.target.name]: event.target.value
+      }),
+    })
+  };
+  const handleTableProductAmountChange = (event) => {
+    setTableProductAmount({
+      ...tableProductAmount,
+      [event.target.name]: event.target.value
+    });
+    setDataTableProviders({    
+      return: ({
+        ...tableProductAmount,
+        [event.target.name]: event.target.value
+      }),
+      providerIncomeId:incomeProvider, 
+      providerOutcomeId:outcomeProvider
+    })
   };
   const handleToggleRealChange = () => {
     setToggleReal(!toggleReal);
@@ -203,7 +230,7 @@ export const CalcComision = () => {
       }
     })
   })
-  
+
   const { columnsPromoter } = ColumnsPromoter(
     comercialCost,
     onComercialCostInputChange,
@@ -222,10 +249,10 @@ export const CalcComision = () => {
   const { columns } = Columns(
     incomeProvider,
     outcomeProvider,
-    formData,
+    tableProductAmount,
     incomeProviders,
     outcomeProviderById,
-    onInputChange,
+    handleTableProductAmountChange,
     handleIncomeProviderChange,
     handleOutcomeProviderChange,
     getOutcomeProvider
@@ -233,8 +260,13 @@ export const CalcComision = () => {
   return (
     <div className='newCalc'>
       <div className='newCalcContainer'>
-        <div style={{ width: '100%', height: '70px', display: 'flex', flexDirection: 'row' }}>
-          <div style={{ marginTop: '5px' }}>
+        <div 
+        style={{width:'100%',
+        height:'70px',
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'space-around' }}>
+          <div style={{height: '44px',marginTop:'3px'}}>
             <Toggle
               toggleInvoice={''}
               toggleTotal={''}
@@ -277,18 +309,18 @@ export const CalcComision = () => {
           </div>
         </div>
         {models &&
-          <div style={{ width: '100%', height: 'max-content', display: 'flex', flexDirection: 'row' }}>
+          <div style={{width:'100%',height:'max-content',display:'flex',flexDirection:'row',justifyContent:'space-between' }}>
             <div>
-              <h2>Promotor</h2>
+              <h2 className='h2'>Promotor</h2>
               <ModelsTable rows={models} columns={columnsPromoter} />
             </div>
             <div>
-              <h2>Cliente</h2>
+              <h2 className='h2'>Cliente</h2>
               <ModelsTable rows={models} columns={columnsClient} />
             </div>
           </div>
         }
-        <div style={{ width: '80%', marginTop: '40px' }}>
+        <div style={{ width: '100%',height:'35px', marginTop: '30px' }}>
           <InputSelect
             object={models}
             promoter={undefined}
@@ -301,17 +333,18 @@ export const CalcComision = () => {
             onInputChange={onInputChange}
             labelText={'Productos'} />
         </div>
-        <div>
+        <div style={{width:'100%',height:'250px'}}>
           {modelProvider && <ModelsTable rows={modelProvider} columns={columns} />}
         </div>
-        <div style={{ width: '80%', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '80%',height:'max-content', display: 'flex', justifyContent: 'center' }}>
           <SubmitButton
-            data={{ client, amount, model }}
+            data={{amount,checkedInvoice,dataTableClient,dataTablePromoter,dataTableProviders}}
             firstButtonText={'Calcular'}
             secondButtonText={''}
             setAuth={''}
-            route={''}
-            rows={models} />
+            route={'operation/calculator'}
+            rows={models} 
+            />
         </div>
       </div>
     </div>

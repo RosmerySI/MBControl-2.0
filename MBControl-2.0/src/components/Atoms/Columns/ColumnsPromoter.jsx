@@ -26,8 +26,8 @@ export const ColumnsPromoter = (
           renderCell: (cellvalues) => {
             return (
               <TextField
-                name={`comercialCost${cellvalues.row.name}`}
-                value={comercialCost[`comercialCost${cellvalues.row.name}`] || 0}
+                name={cellvalues.row.name}
+                value={comercialCost[cellvalues.row.name] || 0}
                 onChange={onComercialCostInputChange}
                 autoComplete='off'
                 sx={{ width: '180px', padding: '0px', '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 } }}
@@ -47,8 +47,8 @@ export const ColumnsPromoter = (
           renderCell: (cellvalues) => {
             return (
               <TextField
-                name={`model${cellvalues.row.name}`}
-                value={comisionPromoter[`model${cellvalues.row.name}`] || 0}
+                name={cellvalues.row.name}
+                value={comisionPromoter[cellvalues.row.name]||0}
                 onChange={onComisionPromoterInputChange}
                 autoComplete='off'
                 sx={{ width: '180px', padding: '0px', '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 } }}
@@ -79,7 +79,7 @@ export const ColumnsPromoter = (
                 name={cellvalues.row.name}
                 onClick={() => onToggleModelsPromoter(cellvalues.row.name)}>
                 <p style={{ color: 'gray' }}>
-                  {toggleModelsPromoter && toggleModelsPromoter[cellvalues.row.name] === true ? 'Piso' : '%'}
+                  {toggleModelsPromoter && toggleModelsPromoter[cellvalues.row.name] === false ? 'Piso' : '%'}
                 </p>
               </Button>
             )

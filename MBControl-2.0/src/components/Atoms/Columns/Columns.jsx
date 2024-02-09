@@ -8,10 +8,10 @@ import { NumberFormatMoney } from '../NumberFormat/NumberFormat';
 export const Columns = (
   incomeProvider,
   outcomeProvider,
-  formData,
+  tableProductAmount,
   incomeProviders,
   outcomeProviderById,
-  onInputChange,
+  handleTableProductAmountChange,
   handleIncomeProviderChange,
   handleOutcomeProviderChange,
   getOutcomeProvider) => {
@@ -33,8 +33,8 @@ export const Columns = (
         return (
           <TextField
             name={cellvalues.row.name}
-            value={formData[cellvalues.row.name]}
-            onChange={onInputChange}
+            value={tableProductAmount[cellvalues.row.name]}
+            onChange={handleTableProductAmountChange}
             autoComplete="off"
             sx={{
               width: '180px', padding: '0px',
@@ -61,7 +61,7 @@ export const Columns = (
             value={incomeProvider[cellvalues.row.name]}
             onChange={handleIncomeProviderChange}
             sx={{
-              width: { sm: 200 }, height: { sm: 60 }, backgroundColor: 'rgb(185, 181, 181)',
+              width: { sm: 200 }, height: { sm: 60 }, backgroundColor: 'rgb(232, 228, 228);',
               boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 }
             }}>
             {incomeProviders?.map((test) => (
@@ -90,8 +90,8 @@ export const Columns = (
             onChange={handleOutcomeProviderChange}
             onFocus={() => { getOutcomeProvider(cellvalues.row.id) }}
             sx={{
-              width: { sm: 200 }, backgroundColor: 'rgb(185, 181, 181)',
-              boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 }
+              width:{ sm: 200 },backgroundColor:'rgb(232, 228, 228);',
+              boxShadow: 'none', '.MuiOutlinedInput-notchedOutline':{border:0}
             }}>
             {
               outcomeProviderById?.map((test) => (

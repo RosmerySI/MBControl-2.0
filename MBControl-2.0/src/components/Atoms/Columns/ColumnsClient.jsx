@@ -25,8 +25,8 @@ export const ColumnsClient = (
           renderCell: (cellvalues) => {
             return (
               <TextField
-                name={`model${cellvalues.row.name}`}
-                value={comisionClient[`model${cellvalues.row.name}`] || 0}
+                name={cellvalues.row.name}
+                value={comisionClient[cellvalues.row.name] || 0}
                 onChange={onComisionClientInputChange}
                 autoComplete="off"
                 sx={{ width: '180px', padding: '0px', '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': { padding: 0 } }}
