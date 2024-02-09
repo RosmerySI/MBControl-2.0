@@ -286,6 +286,8 @@ export const CalcComision = () => {
               client={client}
               company={undefined}
               invoice={undefined}
+              model={undefined}
+              role={undefined}
               onInputChange={onInputChange}
               labelText={'Cliente'} />
           </div>
@@ -330,6 +332,7 @@ export const CalcComision = () => {
             company={undefined}
             invoice={undefined}
             model={model}
+            role={role}
             onInputChange={onInputChange}
             labelText={'Productos'} />
         </div>

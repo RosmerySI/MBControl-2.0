@@ -15,6 +15,7 @@ export const SubmitButton = ({data,firstButtonText,secondButtonText,setAuth,rout
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    // console.log(data)
     route==='operation/calculator'&&setOpen(true);
     useSubmit(route,setAuth,data,navigate,rows,setDataCalculated)    
   }

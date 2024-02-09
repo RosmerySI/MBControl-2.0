@@ -40,6 +40,7 @@ export const NewInvoice = () => {
       company={undefined}
       invoice={undefined}
       model={undefined} 
+      role={undefined} 
       onInputChange={onInputChange} 
       labelText={'Cliente'}/>
     <InputSelect 

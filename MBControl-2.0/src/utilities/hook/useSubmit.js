@@ -191,5 +191,18 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
       modalError(
       "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto.");
     }
+  }else if(route==='user/newUserRequest'){
+    console.log(data)        
+    if(data.email!==''&&data.email!==undefined&&data.role.length!==0){
+      const dataNewUser = {
+        email:data.email,
+        rolesId:data.role,            
+      };
+      
+      postObject(route, dataNewUser, setAuth, navigate,setObject);
+    } else {
+      modalError(
+      "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto.");
+    }
   }
 };

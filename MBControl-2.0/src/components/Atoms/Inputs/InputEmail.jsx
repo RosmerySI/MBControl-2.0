@@ -21,8 +21,8 @@ export const InputEmail = ({email,emailValid,onInputChange,labelText}) => {
                 helperText={emailValid}
                 InputProps={{disableUnderline: true }}
                 sx={{
-                    '& .css-1d1r5q-MuiFormHelperText-root': { marginLeft: '50px' },
-                    '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { height: '40px' }
+                    '& .css-1d1r5q-MuiFormHelperText-root': { marginLeft: '10px' },
+                    '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { height: '30px' }
                 }} />
         </div>
     )

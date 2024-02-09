@@ -148,6 +148,7 @@ export const NewClient = () => {
       company={undefined}
       invoice={undefined}
       model={undefined} 
+      role={undefined} 
       onInputChange={onInputChange} 
       labelText={'Promotores'}/>
       <SubmitButton 

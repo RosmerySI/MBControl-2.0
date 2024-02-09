@@ -182,6 +182,7 @@ export const NewPromoter = () => {
               company={undefined}
               invoice={undefined}
               model={undefined} 
+              role={undefined} 
               onInputChange={onInputChange} 
               labelText={'G3'} />
               <InputSelect 
@@ -193,6 +194,7 @@ export const NewPromoter = () => {
               company={undefined}
               invoice={undefined}
               model={undefined} 
+              role={undefined} 
               onInputChange={onInputChange} 
               labelText={'Enlaces'}/>
             </div>

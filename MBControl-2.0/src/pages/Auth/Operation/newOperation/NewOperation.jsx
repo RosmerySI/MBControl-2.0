@@ -185,6 +185,7 @@ export const NewOperation = () => {
             company={undefined}
             invoice={undefined}
             model={undefined}
+            role={undefined}
             onInputChange={onInputChange}
             labelText={'Cliente'} />
           <InputSelect
@@ -196,6 +197,7 @@ export const NewOperation = () => {
             company={company}
             invoice={undefined}
             model={undefined}
+            role={undefined}
             onInputChange={onInputChange}
             labelText={'Empresa'} />
           <InputText
@@ -220,6 +222,7 @@ export const NewOperation = () => {
               company={undefined}
               invoice={invoice}
               model={undefined}
+              role={undefined}
               onInputChange={onInputChange}
               labelText={'Factura'} />
           }
@@ -256,6 +259,7 @@ export const NewOperation = () => {
           company={undefined}
           invoice={undefined}
           model={model}
+          role={undefined}
           onInputChange={onInputChange}
           labelText={'Productos'} />
         {modelProvider&&columns&&<ModelsTable rows={modelProvider} columns={columns}/>}      

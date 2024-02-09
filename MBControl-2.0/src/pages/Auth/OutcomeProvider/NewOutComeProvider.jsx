@@ -103,6 +103,7 @@ export const NewOutComeProvider = () => {
             company={undefined}
             invoice={undefined}
             model={model}
+            role={undefined}
             onInputChange={onInputChange}
             labelText={'Productos'} />
         </div>

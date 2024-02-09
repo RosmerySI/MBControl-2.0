@@ -1,7 +1,7 @@
 import React from 'react'
 import { ListItemText, MenuItem, TextField } from '@mui/material'
 
-export const InputSelect=({object,promoter,g3,link,client,company,invoice,model,onInputChange,labelText})=>{
+export const InputSelect=({object,promoter,g3,link,client,company,invoice,model,role,onInputChange,labelText})=>{
    
     return (
         <div className={labelText==='Productos'?'selectProductContainer':'selectContainer'}>
@@ -14,7 +14,8 @@ export const InputSelect=({object,promoter,g3,link,client,company,invoice,model,
                       client!==undefined?'client':
                       company!==undefined?'company':
                       invoice!==undefined?'invoice':
-                      model!==undefined?'model':'model'
+                      model!==undefined?'model':'role'
+                    
                     }
                 value={promoter!==undefined?promoter:                    
                        g3!==undefined?g3:
@@ -22,9 +23,10 @@ export const InputSelect=({object,promoter,g3,link,client,company,invoice,model,
                        client!==undefined?client:
                        company!==undefined?company:
                        invoice!==undefined?invoice:
-                       model!==undefined&&model}
+                       model!==undefined?model:role
+                       }
                 onChange={onInputChange}
-                SelectProps={{multiple:model?true:invoice?true:false}}
+                SelectProps={{multiple:model?true:invoice?true:role?true:false}}
                 sx={{ width: '100%' }}>
                 {
                 object?.map((selected) => (

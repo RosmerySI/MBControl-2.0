@@ -49,6 +49,10 @@ export const petitions = () => {
       navigate('/outcomeProviders')
       modalSuccess('El proveedor se creó con exito')
     }      
+    if(route==='user/newUserRequest'){
+      navigate('/users')
+      modalSuccess('El usuario se creó con exito')
+    }      
     } catch (error) {
       console.log(error)
       let status = error.response?.request.status;
