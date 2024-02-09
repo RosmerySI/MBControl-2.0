@@ -23,6 +23,7 @@ export const ReportModal = () => {
     useEffect(() => {
       getObject('user',setLinks)
     }, [])
+    
     let linksObject=[]
     if(links){
         links?.forEach(element => {
@@ -59,9 +60,10 @@ export const ReportModal = () => {
     const navigate=useNavigate()
 
     const handleSubmit = () =>{
-        if (range!==null&&selectedLink!==''&&selectedLink!==undefined) {      
+        if (range!==null&&selectedLink!==''&&selectedLink!==undefined) { 
+           
             const dataReporte = {
-                email: selectedLink.id,       
+                email: selectedLink.selectedLink,       
                 startDate:subDay.toISOString(),
                 endDate:addDay.toISOString(),        
             }      

@@ -6,7 +6,6 @@ export const petitions = () => {
   const getObject = async (route, setObject) => {
     try {
       const { data } = await mbControlApi.get(route);
-      
       setObject(data);
     } catch (error) {
       console.log("error", error);

@@ -2,19 +2,29 @@ import React, { useEffect, useState } from 'react'
 import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
 import { petitions } from '../../../../services/api/petitions'
 import { Button } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import edit from '../../../../assets/images/edit.png'
 import list from '../../../../assets/images/lista.png'
 import graphic from '../../../../assets/images/show.png'
 
 export const Operations = () => {
+
   const [object, setObject] = useState()
 
   const { getObject } = petitions()
 
-  useEffect(() => {
-    getObject('/operation', setObject)
+  const [params] = useSearchParams();
+  const email = params.get('email');
+  const startDate = params.get('startDate');
+  const endDate = params.get('endDate');
+     
+  useEffect(() => {   
+    getObject(startDate?
+    `/operation?email=${email?email:''}&startDate=${startDate?startDate:''}
+    &endDate=${endDate?endDate:''}`:
+    '/operation', setObject)  
   }, [])
+
   const [openCrear, setOpenCrear] = React.useState(false);
   const handleOpenCrear = () => setOpenCrear(true);
   const handleCloseCrear = () => setOpenCrear(false);
@@ -30,9 +40,7 @@ export const Operations = () => {
   //   setSessionName('Operaciones')  
   // }, []);
 
- 
-
-  let counter = 0
+    let counter = 0
   let updatedOperation = []
  
   object?.forEach(item => {
