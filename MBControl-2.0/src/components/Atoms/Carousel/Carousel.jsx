@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { petitions } from '../../../services/api/petitions'
 import Carousel from 'react-material-ui-carousel'
 import { Paper } from '@mui/material'
 import enlaces from '../../../assets/images/usuario.png'
 import './carousel.css'
+
 export const LinkCarousel = () => {
 
     let enlacesObject = [
@@ -16,6 +18,29 @@ export const LinkCarousel = () => {
         },
     ]
 
+    const [links, setLinks] = useState()
+
+    const { getObject} = petitions();
+
+    useEffect(() => {
+        getObject('user',setLinks)       
+    }, []);    
+   
+    let linksObject = []
+    
+    links?.forEach(item => {
+        if(item.userName!==null&&!item.roles.includes('Admin')){
+        
+        let element =
+            {              
+              userName:item.userName,
+              userEmail:item.email,
+              userRoles:item.roles[0]
+            }
+            linksObject.push(element)
+        }
+    });
+
     return (
         <div className='enlacesContainer'>
             <div>
@@ -27,7 +52,7 @@ export const LinkCarousel = () => {
             }}
             >
                 {
-                    enlacesObject.map((item) =>                       
+                    linksObject.map((item) =>                       
                     < Paper className='paper' key={item.email}>                                                    
                         <h3>{item.roles}</h3>                         
                         <img className='imageCarousel' src={enlaces} alt='enlaces'></img>                            
