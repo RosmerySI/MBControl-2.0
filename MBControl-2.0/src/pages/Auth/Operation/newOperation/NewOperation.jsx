@@ -6,7 +6,7 @@ import { useForm } from '../../../../utilities/hook/useForm';
 import { petitions } from '../../../../services/api/petitions';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
-import { Columns } from '../../../../components/Atoms/Columns/Columns';
+import { ColumnsOperation } from '../../../../components/Atoms/Columns/ColumnsOperation';
 import { userInfo } from '../../../../utilities/userInfo/userInfo';
 
 const initialValue = {
@@ -141,7 +141,7 @@ export const NewOperation = () => {
     getObject(`/providerOutCome/models/${myId}`,setOutcomeProvidersById);
   };
 
-  const {columns} = Columns(
+  const {columns} = ColumnsOperation(
     incomeProvider,
     outcomeProvider,
     tableProductAmount,

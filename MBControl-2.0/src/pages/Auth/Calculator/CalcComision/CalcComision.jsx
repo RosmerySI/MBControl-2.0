@@ -9,7 +9,7 @@ import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
 import { ColumnsClient } from '../../../../components/Atoms/Columns/ColumnsClient';
 import { ColumnsPromoter } from '../../../../components/Atoms/Columns/ColumnsPromoter';
-import { Columns } from '../../../../components/Atoms/Columns/Columns';
+import { ColumnsOperation } from '../../../../components/Atoms/Columns/ColumnsOperation';
 import { userInfo } from '../../../../utilities/userInfo/userInfo';
 
 const initialValue = {
@@ -246,7 +246,7 @@ export const CalcComision = () => {
     onToggleModelsClient,
     toggleModelsClient
   )
-  const { columns } = Columns(
+  const { columns } = ColumnsOperation(
     incomeProvider,
     outcomeProvider,
     tableProductAmount,

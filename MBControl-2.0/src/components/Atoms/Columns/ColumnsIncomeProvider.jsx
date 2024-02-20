@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, InputAdornment, TextField } from '@mui/material'
 import { NumberFormatPercent } from '../NumberFormat/NumberFormat'
 
-export const ColumnsProvider = (
+export const ColumnsIncomeProvider = (
     formData,
     toggleInvoiceTotal,
     toggleNotInvoiceTotal,

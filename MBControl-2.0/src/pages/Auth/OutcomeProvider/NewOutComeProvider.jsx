@@ -5,7 +5,7 @@ import { InputSelect } from '../../../components/Atoms/Inputs/InputSelect'
 import { SubmitButton } from '../../../components/Atoms/Button/SubmitButton'
 import { petitions } from '../../../services/api/petitions'
 import { useForm } from '../../../utilities/hook/useForm'
-import { ColumnsProviderOutCome } from '../../../components/Atoms/Columns/ColumnsProviderOutCome'
+import { ColumnsOutcomeProvider } from '../../../components/Atoms/Columns/ColumnsOutcomeProvider'
 
 const initialValue = {
   name: '',
@@ -70,7 +70,7 @@ export const NewOutComeProvider = () => {
     setToggleModels(toggleModelCopy)
   }
   
-  const { columnsProviders } = ColumnsProviderOutCome(
+  const { columnsProviders } = ColumnsOutcomeProvider(
     formData,
     toggleModels,
     handleToggleModelChange,

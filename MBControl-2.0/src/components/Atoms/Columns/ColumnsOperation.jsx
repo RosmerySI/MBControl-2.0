@@ -5,7 +5,7 @@ import { NumberFormatMoney } from '../NumberFormat/NumberFormat';
 
 
 
-export const Columns = (
+export const ColumnsOperation = (
   incomeProvider,
   outcomeProvider,
   tableProductAmount,

@@ -3,7 +3,7 @@ import { InputText } from '../../../components/Atoms/Inputs/InputText'
 import { SubmitButton } from '../../../components/Atoms/Button/SubmitButton'
 import { ModelsTable } from '../../../components/Atoms/Tables/ModelsTable'
 import { useForm } from '../../../utilities/hook/useForm'
-import { ColumnsProvider } from '../../../components/Atoms/Columns/ColumnsProvider'
+import { ColumnsIncomeProvider } from '../../../components/Atoms/Columns/ColumnsIncomeProvider'
 
 const initialValue = {
   name: ''
@@ -46,7 +46,7 @@ export const NewIncomeProvider = () => {
 
   const facturas = [{ name: 'Factura' }, { name: 'Sin Factura' }]
 
-  const { columnsProviders } = ColumnsProvider(
+  const { columnsProviders } = ColumnsIncomeProvider(
     formData,
     toggleInvoiceTotal,
     toggleNotInvoiceTotal,
