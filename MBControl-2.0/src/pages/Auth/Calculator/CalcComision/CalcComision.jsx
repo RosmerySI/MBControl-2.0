@@ -22,9 +22,8 @@ export const CalcComision = () => {
 
   const [toggleReal, setToggleReal] = useState(false);
   const [clients, setClients] = useState()
-  const [checkedInvoice, setCheckedInvoice] = useState(false)
+  const [toggleInvoice, setToggleInvoice] = useState(false);
   const [models, setModels] = useState()
-
   const [incomeProviders, setIncomeProviders] = useState()
   const [incomeProvider, setIncomeProvider] = useState()
   const [outcomeProvider, setOutcomeProvider] = useState()
@@ -215,8 +214,8 @@ export const CalcComision = () => {
   const handleToggleRealChange = () => {
     setToggleReal(!toggleReal);
   }
-  const handleChangeCheckedInvoice = () => {
-    setCheckedInvoice(!toggleReal);
+  const handleToggleInvoiceChange = () => {
+    setToggleInvoice(!toggleInvoice);
   }
   let modelProvider = []
   model?.forEach(element => {
@@ -266,7 +265,7 @@ export const CalcComision = () => {
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-around' }}>
-          <div style={{height: '44px',marginTop:'3px'}}>
+          <div style={{width:'20%',marginTop:'3px'}}>
             <Toggle
               toggleInvoice={''}
               toggleTotal={''}
@@ -277,7 +276,7 @@ export const CalcComision = () => {
               firstValue={'Real'}
               secondValue={'Virtual'} />
           </div>
-          <div style={{ width: '40%', marginTop: '2px' }}>
+          <div style={{ width:'20%', marginTop: '2px' }}>
             <InputSelect
               object={clients}
               promoter={undefined}
@@ -291,7 +290,7 @@ export const CalcComision = () => {
               onInputChange={onInputChange}
               labelText={'Cliente'} />
           </div>
-          <div>
+          <div style={{ width:'20%'}}>
             <InputText
               placeholder={'Total'}
               name={undefined}
@@ -303,15 +302,20 @@ export const CalcComision = () => {
               phoneValid={''}
               onInputChange={onInputChange} />
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <InputCheckBox
-              checkedValue={checkedInvoice}
-              handleChangeValue={handleChangeCheckedInvoice}
-              text={'Factura'} />
+          <div style={{width:'20%',height: '44px',marginTop:'3px'}}>
+          <Toggle
+            toggleInvoice={toggleInvoice}
+            toggleTotal={''}
+            toggleReal={''}
+            handleToggleInvoiceChange={handleToggleInvoiceChange}
+            handleToggleTotalChange={''}
+            handleToggleRealChange={''}
+            firstValue={'Con Factura'}
+            secondValue={'Sin Factura'} />
           </div>
         </div>
         {models &&
-          <div style={{width:'100%',height:'max-content',display:'flex',flexDirection:'row',justifyContent:'space-between' }}>
+          <div style={{width:'100%',height:'max-content',display:'flex',flexDirection:'row',justifyContent:'center' }}>
             <div>
               <h2 className='h2'>Promotor</h2>
               <ModelsTable rows={models} columns={columnsPromoter} />
@@ -322,7 +326,7 @@ export const CalcComision = () => {
             </div>
           </div>
         }
-        <div style={{ width: '100%',height:'35px', marginTop: '30px' }}>
+        <div style={{ width: '92%',height:'35px', marginTop: '40px' }}>
           <InputSelect
             object={models}
             promoter={undefined}
@@ -332,16 +336,16 @@ export const CalcComision = () => {
             company={undefined}
             invoice={undefined}
             model={model}
-            role={role}
+            role={undefined}
             onInputChange={onInputChange}
             labelText={'Productos'} />
         </div>
-        <div style={{width:'100%',height:'250px'}}>
+        <div style={{width:'76%',height:'fit-content', marginTop: '10px' }}>
           {modelProvider && <ModelsTable rows={modelProvider} columns={columns} />}
         </div>
-        <div style={{ width: '80%',height:'max-content', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
           <SubmitButton
-            data={{amount,checkedInvoice,dataTableClient,dataTablePromoter,dataTableProviders}}
+            data={{amount,toggleInvoice,dataTableClient,dataTablePromoter,dataTableProviders}}
             firstButtonText={'Calcular'}
             secondButtonText={''}
             setAuth={''}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './toggle.css'
 
 export const Toggle = ({
@@ -13,7 +13,9 @@ export const Toggle = ({
     return (
     <div className="toggle-container" 
     onClick={handleToggleInvoiceChange?handleToggleInvoiceChange:
-    handleToggleTotalChange?handleToggleTotalChange:handleToggleRealChange}>               
+    handleToggleTotalChange?handleToggleTotalChange:handleToggleRealChange}>
+        <div className='firstValue'>{firstValue}</div>
+        <div className='secondValue'>{secondValue}</div>               
         <div className={`toggle-btn ${toggleInvoice?!toggleInvoice?'disable':'':
             toggleTotal?!toggleTotal?'disable':'':!toggleReal?'disable':''}`}>
             {toggleInvoice?toggleInvoice?secondValue: firstValue:

@@ -19,18 +19,14 @@ export const InputRfc = ({rfc,checkedRfc,rfcValid,onInputChange,handleChangeRfc}
                 InputProps={{ disableUnderline: true }}
                 sx={{
                     '& .css-1d1r5q-MuiFormHelperText-root': { marginLeft: '50px' },
-                    '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { height: '40px' }
+                    '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { height: '30px' }
                 }}>
 
             </TextField>
+            <div style={{width:'100px',height:'59.7px', backgroundColor:'#f2f3f7', color:'black',
+            display:'flex', alignItems:'center'}}>
             <InputCheckBox checkedValue={checkedRfc}  handleChangeValue={handleChangeRfc} text={checkedRfc ? 'Física' : 'Moral'}/>
-            {/* <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <input className='checkbox' type="checkbox" value={false || checkedRfc} onChange={handleChangeRfc} />
-                <span style={{ height: '130%', display: 'flex', alignItems: 'center', color: 'gray', fontFamily: 'sans-serif' }}>
-                    {checkedRfc ? 'Física' : 'Moral'}
-                </span>
-            </div> */}
-
+            </div>
         </div>
     )
 }

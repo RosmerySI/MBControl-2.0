@@ -27,7 +27,9 @@ export const InputSelect=({object,promoter,g3,link,client,company,invoice,model,
                        }
                 onChange={onInputChange}
                 SelectProps={{multiple:model?true:invoice?true:role?true:false}}
-                sx={{ width: '100%' }}>
+                sx={{ width: '100%' ,
+                '& .css-q3t2rb-MuiListItemText-root':{width: '110px'}
+                }}>
                 {
                 object?.map((selected) => (
                     <MenuItem key={selected.id?selected.id:selected.email} value={selected.id?selected.id:selected.email}>

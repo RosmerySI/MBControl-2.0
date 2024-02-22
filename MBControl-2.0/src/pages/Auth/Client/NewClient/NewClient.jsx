@@ -5,13 +5,11 @@ import { InputRfc } from '../../../../components/Atoms/Inputs/InputRfc';
 import { ModelsTable } from '../../../../components/Atoms/Tables/ModelsTable';
 import { InputSelect } from '../../../../components/Atoms/Inputs/InputSelect';
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton';
-import { NumberFormatPercent } from '../../../../components/Atoms/NumberFormat/NumberFormat';
 import { userInfo } from '../../../../utilities/userInfo/userInfo';
 import { useForm } from '../../../../utilities/hook/useForm';
 import { petitions } from '../../../../services/api/petitions';
-import { Button, InputAdornment, TextField } from '@mui/material';
-import '../../newStyle.css';
 import { ColumnsClient } from '../../../../components/Atoms/Columns/ColumnsClient';
+import '../../newStyle.css';
 
 const initialValue = {
   name: '',
@@ -26,9 +24,7 @@ export const NewClient = () => {
   const [promoters, setPromoters] = useState() 
   const [comisionClient, setComisionClient] = useState({})
   const [toggleModelsClient, setToggleModelsClient] = useState()
-  const [formData, setFormData] = useState({}) 
   const [dataTable, setDataTable] = useState({}) 
-  const [clientToEdit, setClientToEdit] = useState() 
   const [checkedRfc, setCheckedRfc] = useState(false);
 
   const handleChangeRfc = () => {setCheckedRfc(!checkedRfc)};
@@ -138,7 +134,9 @@ export const NewClient = () => {
       rfcValid={rfcValid} 
       onInputChange={onInputChange} 
       handleChangeRfc={handleChangeRfc}/>
+      <div style={{width:'60%'}}>  
       <ModelsTable rows={models} columns={columnsClient}/>
+      </div>  
       <InputSelect 
       object={promoters} 
       promoter={promoter} 

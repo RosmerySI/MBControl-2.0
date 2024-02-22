@@ -2,9 +2,6 @@ import React from 'react';
 import { ListItemText, MenuItem, TextField } from '@mui/material';
 import { NumberFormatMoney } from '../NumberFormat/NumberFormat';
 
-
-
-
 export const ColumnsOperation = (
   incomeProvider,
   outcomeProvider,
@@ -14,8 +11,11 @@ export const ColumnsOperation = (
   handleTableProductAmountChange,
   handleIncomeProviderChange,
   handleOutcomeProviderChange,
-  getOutcomeProvider) => {
+  getOutcomeProvider
+  ) => {
+
   const limitCharacter = 11;
+
   let columns = [
     {
       field: 'name',
@@ -29,7 +29,6 @@ export const ColumnsOperation = (
       sortable: false,
       width: 150,
       renderCell: (cellvalues) => {
-
         return (
           <TextField
             name={cellvalues.row.name}
@@ -61,8 +60,9 @@ export const ColumnsOperation = (
             value={incomeProvider[cellvalues.row.name]}
             onChange={handleIncomeProviderChange}
             sx={{
-              width: { sm: 200 }, height: { sm: 60 }, backgroundColor: 'rgb(232, 228, 228);',
-              boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 }
+              width: { sm: 200 }, height: { sm: 45 }, backgroundColor: 'rgb(232, 228, 228);',
+              boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 },
+              '.css-1hmx59r-MuiFormControl-root-MuiTextField-root':{width:'45px'}
             }}>
             {incomeProviders?.map((test) => (
               <MenuItem key={test.id} value={test.id}>
@@ -90,8 +90,9 @@ export const ColumnsOperation = (
             onChange={handleOutcomeProviderChange}
             onFocus={() => { getOutcomeProvider(cellvalues.row.id) }}
             sx={{
-              width:{ sm: 200 },backgroundColor:'rgb(232, 228, 228);',
-              boxShadow: 'none', '.MuiOutlinedInput-notchedOutline':{border:0}
+              width:{ sm: 200 }, height: { sm: 45 },backgroundColor:'rgb(232, 228, 228);',
+              boxShadow: 'none', '.MuiOutlinedInput-notchedOutline':{border:0},
+              '.css-1hmx59r-MuiFormControl-root-MuiTextField-root':{width:'45px'}
             }}>
             {
               outcomeProviderById?.map((test) => (

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Button, InputAdornment, TextField } from '@mui/material';
 import { petitions } from '../../../../services/api/petitions'
 import { useForm } from '../../../../utilities/hook/useForm';
 import { InputText } from '../../../../components/Atoms/Inputs/InputText';
@@ -173,6 +172,7 @@ export const NewPromoter = () => {
             <ModelsTable rows={models} columns={columnsPromoter} />
             <div style={{ width: '100%', height: 'max-content', display: 'flex', 
             flexDirection: 'row', alignItems: 'center',justifyContent:'space-between'}}>
+              <div style={{width:'49%'}}>
               <InputSelect 
               object={G3} 
               promoter={undefined} 
@@ -185,6 +185,8 @@ export const NewPromoter = () => {
               role={undefined} 
               onInputChange={onInputChange} 
               labelText={'G3'} />
+              </div>
+              <div style={{width:'49%'}}>
               <InputSelect 
               object={linksObject} 
               promoter={undefined} 
@@ -197,10 +199,12 @@ export const NewPromoter = () => {
               role={undefined} 
               onInputChange={onInputChange} 
               labelText={'Enlaces'}/>
+              </div>
             </div>
             <div 
             style={{width:'100%',height:'max-content',display:'flex',flexDirection:'row',
-            justifyContent:'space-around'}}>
+            justifyContent:'space-between'}}>
+              <div style={{width:'49%'}}>
               <InputText 
               placeholder={'Telefono'} 
               name={undefined} 
@@ -212,10 +216,13 @@ export const NewPromoter = () => {
               nameValid={''} 
               phoneValid={phoneValid} 
               onInputChange={onInputChange} />
+              </div>
+              <div style={{width:'50%'}}>
               <InputEmail 
               email={email} 
               emailValid={emailValid} 
               onInputChange={onInputChange} />
+              </div>
             </div>
             <div style={{width:'100%',display:'flex',flexDirection:'row'}}>
               <div style={{width:'50%',fontFamily:'sans-serif',color:'gray',fontSize:'20px'}}>
