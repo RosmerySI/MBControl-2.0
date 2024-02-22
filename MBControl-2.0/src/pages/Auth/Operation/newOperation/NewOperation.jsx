@@ -11,14 +11,14 @@ import { userInfo } from '../../../../utilities/userInfo/userInfo';
 
 const initialValue = {
   client: '',
-  company: '',  
+  company: '',
   amount: '',
-  invoice:[],
-  model:[], 
+  invoice: [],
+  model: [],
 }
 
 export const NewOperation = () => {
-  
+
   const [toggleInvoice, setToggleInvoice] = useState(false);
   const [toggleTotal, setToggleTotal] = useState(false);
 
@@ -31,20 +31,18 @@ export const NewOperation = () => {
   const [folio, setFolio] = useState()
 
   const [incomeProviders, setIncomeProviders] = useState();
-  const [outcomeProviders, setOutcomeProviders] = useState();
   const [outcomeProviderById, setOutcomeProvidersById] = useState();
-  const [incomeProvider ,  setIncomeProvider ]=useState();
-  const [outcomeProvider ,  setOutcomeProvider ]=useState();
+  const [incomeProvider, setIncomeProvider] = useState();
+  const [outcomeProvider, setOutcomeProvider] = useState();
 
- 
   const [tableProductAmount, setTableProductAmount] = useState({});
 
   const [dataTable, setDataTable] = useState();
 
-  const {getObject} = petitions();
-  const {useremail} = userInfo();
-  const {client,company,amount,invoice,model,onInputChange}=useForm(initialValue);  
-  
+  const { getObject } = petitions();
+  const { useremail } = userInfo();
+  const { client, company, amount, invoice, model, onInputChange } = useForm(initialValue);
+
   useEffect(() => {
     getObject('/company', setCompanies)
     getObject('/client', setClients)
@@ -55,7 +53,7 @@ export const NewOperation = () => {
   }, [])
 
   let modelProvider = []
-  
+
   model?.forEach(element => {
     models?.forEach(item => {
       if (element === item.id) {
@@ -66,34 +64,34 @@ export const NewOperation = () => {
         modelProvider.push(model)
       }
     })
-  })  
-  
+  })
+
   useEffect(() => {
     if (models) {
-      
-      let tableProductAmountCopy = { ...tableProductAmount }
-      let incomeProviderCopy={...incomeProvider}
-      let outcomeProviderCopy={...outcomeProvider}
 
-      models.forEach(element => {        
+      let tableProductAmountCopy = { ...tableProductAmount }
+      let incomeProviderCopy = { ...incomeProvider }
+      let outcomeProviderCopy = { ...outcomeProvider }
+
+      models.forEach(element => {
         tableProductAmountCopy[element.name] = 0
-        incomeProviderCopy[element.name]=''      
-        outcomeProviderCopy[element.name]=''
+        incomeProviderCopy[element.name] = ''
+        outcomeProviderCopy[element.name] = ''
       });
 
       setTableProductAmount(tableProductAmountCopy)
       setIncomeProvider(incomeProviderCopy)
       setOutcomeProvider(outcomeProviderCopy)
-      setDataTable({       
-        return:tableProductAmountCopy,
-        providerIncomeId:incomeProviderCopy,
-        providerOutcomeId:outcomeProviderCopy
+      setDataTable({
+        return: tableProductAmountCopy,
+        providerIncomeId: incomeProviderCopy,
+        providerOutcomeId: outcomeProviderCopy
       })
     }
   }, [models]);
- 
-  const handleTableProductAmountChange=(event)=>{
-      setTableProductAmount({
+
+  const handleTableProductAmountChange = (event) => {
+    setTableProductAmount({
       ...tableProductAmount,
       [event.target.name]: event.target.value
     });
@@ -102,46 +100,46 @@ export const NewOperation = () => {
         ...tableProductAmount,
         [event.target.name]: event.target.value
       },
-      providerIncomeId:incomeProvider,
-      providerOutcomeId:outcomeProvider,     
+      providerIncomeId: incomeProvider,
+      providerOutcomeId: outcomeProvider,
     })
   };
-  const handleIncomeProviderChange=(event)=>{
+  const handleIncomeProviderChange = (event) => {
     setIncomeProvider({
       ...incomeProvider,
       [event.target.name]: event.target.value
     });
     setDataTable({
-     
-      return:tableProductAmount,      
-      providerIncomeId:{
+
+      return: tableProductAmount,
+      providerIncomeId: {
         ...incomeProvider,
         [event.target.name]: event.target.value
       },
-      providerOutcomeId:outcomeProvider,     
-    })   
+      providerOutcomeId: outcomeProvider,
+    })
   };
 
-  const handleOutcomeProviderChange = (event) => {    
+  const handleOutcomeProviderChange = (event) => {
     setOutcomeProvider({
       ...outcomeProvider,
       [event.target.name]: event.target.value
     });
     setDataTable({
-      return:tableProductAmount,      
-      providerIncomeId:incomeProvider,
-      providerOutcomeId:{
+      return: tableProductAmount,
+      providerIncomeId: incomeProvider,
+      providerOutcomeId: {
         ...outcomeProvider,
         [event.target.name]: event.target.value
-      },     
-    })   
+      },
+    })
   };
 
-  const getOutcomeProvider = async(myId) => {
-    getObject(`/providerOutCome/models/${myId}`,setOutcomeProvidersById);
+  const getOutcomeProvider = async (myId) => {
+    getObject(`/providerOutCome/models/${myId}`, setOutcomeProvidersById);
   };
 
-  const {columns} = ColumnsOperation(
+  const { columns } = ColumnsOperation(
     incomeProvider,
     outcomeProvider,
     tableProductAmount,
@@ -165,54 +163,62 @@ export const NewOperation = () => {
     <div className='newContainerOperation'>
       <div className='newOperationContainer'>
         <div>
-        <Toggle
-          toggleInvoice={toggleInvoice}
-          toggleTotal={''}
-          toggleReal={''}
-          handleToggleInvoiceChange={handleToggleInvoiceChange}
-          handleToggleTotalChange={''}
-          handleToggleRealChange={''}
-          firstValue={'Con Factura'}
-          secondValue={'Sin Factura'} />
+          <Toggle
+            toggleInvoice={toggleInvoice}
+            toggleTotal={''}
+            toggleReal={''}
+            handleToggleInvoiceChange={handleToggleInvoiceChange}
+            handleToggleTotalChange={''}
+            handleToggleRealChange={''}
+            firstValue={'Con Factura'}
+            secondValue={'Sin Factura'} />
         </div>
-        <div style={{width:'100%',height:'70px',display:'flex',flexDirection:'row'}}>
-          <InputSelect
-            object={clients}
-            promoter={undefined}
-            g3={undefined}
-            link={undefined}
-            client={client}
-            company={undefined}
-            invoice={undefined}
-            model={undefined}
-            role={undefined}
-            onInputChange={onInputChange}
-            labelText={'Cliente'} />
-          <InputSelect
-            object={companies}
-            promoter={undefined}
-            g3={undefined}
-            link={undefined}
-            client={undefined}
-            company={company}
-            invoice={undefined}
-            model={undefined}
-            role={undefined}
-            onInputChange={onInputChange}
-            labelText={'Empresa'} />
-          <InputText
-            labelText
-            placeholder={'Folio'}
-            name={undefined}
-            phone={undefined}
-            invoiceNumber={undefined}
-            amount={undefined}
-            folio={folio}
-            nameValid={''}
-            phoneValid={''}
-            onInputChange={onInputChange} />
-          {
-            !toggleInvoice &&
+        <div style={{ width: '100%', height: '70px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <div style={{ width: '24%' }}>
+            <InputSelect
+              object={clients}
+              promoter={undefined}
+              g3={undefined}
+              link={undefined}
+              client={client}
+              company={undefined}
+              invoice={undefined}
+              model={undefined}
+              role={undefined}
+              onInputChange={onInputChange}
+              labelText={'Cliente'} />
+          </div>
+          <div style={{ width: '24%' }}>
+            <InputSelect
+              object={companies}
+              promoter={undefined}
+              g3={undefined}
+              link={undefined}
+              client={undefined}
+              company={company}
+              invoice={undefined}
+              model={undefined}
+              role={undefined}
+              onInputChange={onInputChange}
+              labelText={'Empresa'} />
+          </div>
+          <div style={{ width: '24%' }}>
+            <InputText
+              labelText
+              placeholder={'Folio'}
+              name={undefined}
+              phone={undefined}
+              invoiceNumber={undefined}
+              amount={undefined}
+              folio={folio}
+              nameValid={''}
+              phoneValid={''}
+              onInputChange={onInputChange} />
+          </div>
+        </div>
+        {
+          !toggleInvoice &&
+          <div style={{ width: '100%' }}>
             <InputSelect
               object={invoices}
               promoter={undefined}
@@ -225,9 +231,9 @@ export const NewOperation = () => {
               role={undefined}
               onInputChange={onInputChange}
               labelText={'Factura'} />
-          }
-        </div>
-        <div>
+          </div>
+        }
+        <div style={{height:'150px'}}>
           <InputText
             placeholder={'MontoComprobante'}
             name={undefined}
@@ -238,18 +244,17 @@ export const NewOperation = () => {
             nameValid={''}
             phoneValid={''}
             onInputChange={onInputChange} />
+            <Toggle
+            toggleInvoice={''}
+            toggleTotal={toggleTotal}
+            toggleReal={''}
+            handleToggleInvoiceChange={''}
+            handleToggleTotalChange={handleToggleTotalChange}
+            handleToggleRealChange={''}
+            firstValue={'Parcial'}
+            secondValue={'Total'} />
         </div>
-        <div>
-        <Toggle
-          toggleInvoice={''}
-          toggleTotal={toggleTotal}
-          toggleReal={''}
-          handleToggleInvoiceChange={''}
-          handleToggleTotalChange={handleToggleTotalChange}
-          handleToggleRealChange={''}
-          firstValue={'Parcial'}
-          secondValue={'Total'} />
-        </div>
+        
         <InputSelect
           object={models}
           promoter={undefined}
@@ -262,14 +267,16 @@ export const NewOperation = () => {
           role={undefined}
           onInputChange={onInputChange}
           labelText={'Productos'} />
-        {modelProvider&&columns&&<ModelsTable rows={modelProvider} columns={columns}/>}      
-        <SubmitButton 
-        data={{client,company,folio,invoice,amount,toggleTotal,useremail,dataTable}} 
-        firstButtonText={'Crear'} 
-        secondButtonText={''} 
-        setAuth={''} 
-        route={'operation'}
-        rows={models}/>
+        {modelProvider && columns && <ModelsTable rows={modelProvider} columns={columns} />}
+        <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
+          <SubmitButton
+            data={{ client, company, folio, invoice, amount, toggleTotal, useremail, dataTable }}
+            firstButtonText={'Crear'}
+            secondButtonText={''}
+            setAuth={''}
+            route={'operation'}
+            rows={models} />
+        </div>
       </div>
     </div>
   )

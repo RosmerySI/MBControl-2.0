@@ -22,7 +22,9 @@ import { IncomeProviders } from '../../pages/Auth/IncomeProviders/IncomeProvider
 import { OutcomeProviders } from '../../pages/Auth/OutcomeProvider/OutcomeProviders';
 import { NewIncomeProvider } from '../../pages/Auth/IncomeProviders/NewIncomeProvider';
 import { NewOutComeProvider } from '../../pages/Auth/OutcomeProvider/NewOutComeProvider';
-import { userInfo } from '../../utilities/userInfo/userInfo'
+import { userInfo } from '../../utilities/userInfo/userInfo';
+import { PieOperation } from '../../pages/Auth/Graphics/PieOperation';
+import { SubOperations } from '../../pages/Auth/Operation/SubOperations/SubOperations';
 import './auth.css'
 
 export const Auth = ({ setAuth }) => {
@@ -65,6 +67,8 @@ export const Auth = ({ setAuth }) => {
               <Route path="/clients" element={<Clients />} />
               <Route path="/newoperation" element={<NewOperation />} />
               <Route path="/operations" element={<Operations />} />
+              <Route path="/suboperations" element={<SubOperations />} />
+              <Route path="/pieOperation" element={<PieOperation setSessionName={setSessionName}/>} />
               <Route path="/newpromoter" element={<NewPromoter sessionName={sessionName} />} />
               <Route path="/promoters" element={<Promoters />} />
               <Route path="/newuser" element={<NewUser />} />
@@ -91,6 +95,8 @@ export const Auth = ({ setAuth }) => {
               <Route path="/clients" element={<Clients />} />
               <Route path="/newoperation" element={<NewOperation />} />
               <Route path="/operations" element={<Operations />} />
+              <Route path="/suboperations" element={<SubOperations/>} />
+              <Route path="/pieOperation" element={<PieOperation setSessionName={setSessionName}/>} />
               <Route path="/newpromoter" element={<NewPromoter sessionName={sessionName} />} />
               <Route path="/promoters" element={<Promoters />} />
               <Route path="/newinvoice" element={<NewInvoice />} />

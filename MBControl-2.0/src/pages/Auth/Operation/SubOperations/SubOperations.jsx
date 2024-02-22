@@ -3,11 +3,10 @@ import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
 import { ColumnsOperationsTable } from '../../../../components/Atoms/Columns/ColumnsOperationsTable';
 import { OperationsObject } from '../../../../components/Particules/Operations/OperationsObject';
 
-
-export const Operations = () => {  
-
-  const {updatedOperation,parentOperationId}=OperationsObject()
-  let suboperation=parentOperationId?true:false
+export const SubOperations = () => {
+  
+  const {updatedOperation}=OperationsObject()
+  let suboperation=true
   const {columnsOperationsTable} = ColumnsOperationsTable(suboperation)
 
   return (
@@ -16,7 +15,8 @@ export const Operations = () => {
       object={updatedOperation}
       columnFields={columnsOperationsTable}
       buttonText={'Nueva Operación'}
-      pie={true}      
+      pie={true} 
+           
     />
   )
 }
