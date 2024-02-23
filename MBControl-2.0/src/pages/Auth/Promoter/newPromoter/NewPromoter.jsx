@@ -161,14 +161,15 @@ export const NewPromoter = () => {
           models !== undefined && G3 !== undefined && links !== undefined &&
           <div className='formStyle'>
             <InputText 
+            onInputChange={onInputChange}
             placeholder={'Nombre'} 
-            name={name} 
-            phone={undefined} 
+            name={name}
+            nameValid={nameValid}  
+            phone={undefined}
+            phoneValid={''}  
             invoiceNumber={undefined} 
-            amount={undefined}
-            nameValid={nameValid} 
-            phoneValid={''} 
-            onInputChange={onInputChange} />
+            amount={undefined}           
+            />
             <ModelsTable rows={models} columns={columnsPromoter} />
             <div style={{ width: '100%', height: 'max-content', display: 'flex', 
             flexDirection: 'row', alignItems: 'center',justifyContent:'space-between'}}>
@@ -206,16 +207,17 @@ export const NewPromoter = () => {
             justifyContent:'space-between'}}>
               <div style={{width:'49%'}}>
               <InputText 
+              onInputChange={onInputChange} 
               placeholder={'Telefono'} 
-              name={undefined} 
+              name={undefined}
+              nameValid={''}  
               phone={phone} 
+              phoneValid={phoneValid} 
               invoiceNumber={undefined} 
               amount={undefined}
               invoice={undefined}
-              model={undefined}
-              nameValid={''} 
-              phoneValid={phoneValid} 
-              onInputChange={onInputChange} />
+              model={undefined}             
+              />
               </div>
               <div style={{width:'50%'}}>
               <InputEmail 

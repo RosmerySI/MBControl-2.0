@@ -2,7 +2,7 @@ import { petitions } from "../../services/api/petitions.js";
 import { modalError } from "../modals/modals.js";
 
 export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
-  const { postObject } = petitions();
+  const { postObject, putObject } = petitions();
   
   if (route==='user/login') {
     data.email !== "" &&data.password !== ""?    
@@ -80,8 +80,8 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
       );
     }
   }else if(route==='operation'){
-    if(data.client!==''&&data.company!==''&&data.invoice!==''
-    &&data.amount!==''){
+    if(data.client.client!==''&&data.company.company!==''&&data.invoice.invoice!==''
+    &&data.amount.amount!==''){
       let modelsOperation = [];
       rows.forEach((element) => {
         const model = {
@@ -93,19 +93,25 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
         modelsOperation.push(model);
       });
       const dataOperation = {
-        clientId:data.client,
+        clientId:data.client.client,
         userEmail:data.useremail,
-        companyId:data.company,
-        invoiceIds:data.invoice,
-        totalOperation:parseFloat(data.amount),
+        companyId:data.company.company,
+        invoiceIds:!data.toggleInvoice?data.invoice.invoice:[],
+        totalOperation:parseFloat(data.amount.amount),
         isTotalRetorno:data.toggleTotal,
         models:modelsOperation,
         folio:data.folio,
-        isParent:true,
-        parentOperationId:'',
+        isParent:data.parent?true:false,
+        parentOperationId:data.id?data.id:'',
         factura:''        
-      };      
-      postObject(route, dataOperation, setAuth, navigate);
+      };
+      console.log(dataOperation)
+      dataOperation.isParent?
+      console.log('es padre y se para editar')     
+      //putObject(`operation/${dataOperation.parentOperationId}`, dataOperation)
+      :
+      console.log('se va a crear una operacion o suboperacion')
+      //postObject(route, dataOperation, setAuth, navigate);
     } else {
       modalError(
       "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto."
@@ -200,6 +206,19 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
       };
       
       postObject(route, dataNewUser, setAuth, navigate,setObject);
+    } else {
+      modalError(
+      "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto.");
+    }
+  }else if(route==='company'){
+           
+    if(data.name!==''&&data.name!==undefined){
+      const dataNewCompany = {
+        name:data.name,
+                   
+      };
+      
+      postObject(route, dataNewCompany, setAuth, navigate,setObject);
     } else {
       modalError(
       "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto.");

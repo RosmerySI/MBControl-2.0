@@ -5,7 +5,7 @@ import { modalSuccess } from "../../utilities/modals/modals";
 export const petitions = () => {
   
   const getObject = async (route, setObject) => {
-   
+    
     try {
       const { data } = await mbControlApi.get(route);
       setObject(data);
@@ -56,6 +56,10 @@ export const petitions = () => {
       navigate('/users')
       modalSuccess('El usuario se creó con exito')
     }      
+    if(route==='company'){
+      navigate('/companies')
+      modalSuccess('La empresa se guardó con exito')
+    }      
     } catch (error) {
       console.log(error)
       let status = error.response?.request.status;
@@ -63,16 +67,15 @@ export const petitions = () => {
       manageError(status, variable);
     }
   };
-  const putObject = async (route) => {
+  const putObject = async (route,data) => {
     try {
-      await mbControlApi.put(route);
-      // Espera hasta que la operación anterior se complete antes de continuar
+      await mbControlApi.put(route,data);
     } catch (error) {
       let status = error.response.status;
       let variable = error.response.data;
       console.log(status, variable);
       manageError(status, variable);
-      throw error; // Re-lanza el error para que se propague a la función llamadora
+      throw error; 
     }
   };
   return {

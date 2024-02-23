@@ -292,15 +292,16 @@ export const CalcComision = () => {
           </div>
           <div style={{ width:'20%'}}>
             <InputText
+              onInputChange={onInputChange} 
               placeholder={'Total'}
               name={undefined}
+              nameValid={''}
               phone={undefined}
+              phoneValid={''}
               invoiceNumber={undefined}
               amount={amount}
-              folio={undefined}
-              nameValid={''}
-              phoneValid={''}
-              onInputChange={onInputChange} />
+              folio={undefined}             
+              />  
           </div>
           <div style={{width:'20%',height: '44px',marginTop:'3px'}}>
           <Toggle

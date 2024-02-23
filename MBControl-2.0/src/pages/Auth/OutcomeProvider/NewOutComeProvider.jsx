@@ -82,15 +82,15 @@ export const NewOutComeProvider = () => {
       <div className='newProviderContainer'>
         <div style={{ width: '60%' }}>
           <InputText
+            onInputChange={onInputChange}
             placeholder={''}
             name={name}
+            nameValid={nameValid}
             phone={undefined}
+            phoneValid={''}
             invoiceNumber={undefined}
             amount={undefined}
-            folio={undefined}
-            nameValid={nameValid}
-            phoneValid={''}
-            onInputChange={onInputChange}
+            folio={undefined}           
           />
         </div>
         <div style={{ width: '60%', height: 'max-content', marginTop: '30px' }}>

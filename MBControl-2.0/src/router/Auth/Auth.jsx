@@ -65,7 +65,7 @@ export const Auth = ({ setAuth }) => {
               <Route path="/newclient/:clientId" element={<NewClient />} />
               <Route path="/newclient" element={<NewClient />} />
               <Route path="/clients" element={<Clients />} />
-              <Route path="/newoperation" element={<NewOperation />} />
+              <Route path="/newoperation" element={<NewOperation />} />                        
               <Route path="/operations" element={<Operations />} />
               <Route path="/suboperations" element={<SubOperations />} />
               <Route path="/pieOperation" element={<PieOperation setSessionName={setSessionName}/>} />

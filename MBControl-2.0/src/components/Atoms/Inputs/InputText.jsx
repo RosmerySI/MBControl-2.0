@@ -1,16 +1,17 @@
 import { TextField } from '@mui/material'
 import React from 'react'
+import { NumberFormatMoney } from '../NumberFormat/NumberFormat'
 
 export const InputText = ({
+    onInputChange,
     placeholder,
     name,
+    nameValid,
     phone,
+    phoneValid,
     invoiceNumber,
     amount,
-    folio,
-    nameValid,
-    phoneValid,
-    onInputChange,
+    folio,  
     provider,
     label,
     totalOperation,
@@ -60,7 +61,9 @@ export const InputText = ({
                 onChange={onInputChange}
                 error={!!nameValid?!!nameValid:phoneValid}
                 helperText={nameValid?nameValid:phoneValid}
-                InputProps={{disableUnderline:true, readOnly:label?true:false}}
+                InputProps={{disableUnderline:true, readOnly:label?true:false,
+                     inputComponent:amount&& NumberFormatMoney}}
+                
                 sx={{
                     '& .css-1d1r5q-MuiFormHelperText-root': { marginLeft: '50px' },
                     '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { height: '30px' }

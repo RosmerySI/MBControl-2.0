@@ -55,23 +55,25 @@ export const NewInvoice = () => {
       onInputChange={onInputChange} 
       labelText={'Empresa'}/>
     <InputText 
+      onInputChange={onInputChange}
       placeholder={'Número de Factura'} 
-      name={undefined} 
+      name={undefined}
+      nameValid={''}  
       phone={undefined} 
-      invoiceNumber={invoiceNumber} 
-      amount={undefined} 
-      nameValid={''} 
       phoneValid={''} 
-      onInputChange={onInputChange}/>
+      invoiceNumber={invoiceNumber} 
+      amount={undefined}    
+      />
     <InputText 
+      onInputChange={onInputChange}
       placeholder={'Monto'} 
-      name={undefined} 
-      phone={undefined} 
-      invoiceNumber={undefined} 
-      amount={amount} 
+      name={undefined}
       nameValid={''} 
-      phoneValid={''}
-      onInputChange={onInputChange}/>
+      phone={undefined}
+      phoneValid={''} 
+      invoiceNumber={undefined} 
+      amount={amount}      
+      />
     <SubmitButton 
       data={{ client, company, invoiceNumber, amount,useremail}}
       firstButtonText={'Crear'} 

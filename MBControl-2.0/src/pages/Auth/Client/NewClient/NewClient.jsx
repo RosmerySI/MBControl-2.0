@@ -120,14 +120,15 @@ export const NewClient = () => {
       models !== undefined&&promoters!==undefined&&
       <div  className='formStyle'>
       <InputText 
+      onInputChange={onInputChange}
       placeholder={'Nombre'} 
-      name={name} 
+      name={name}
+      nameValid={nameValid}  
       phone={undefined} 
-      invoiceNumber={undefined} 
-      amount={undefined}
-      nameValid={nameValid} 
       phoneValid={''} 
-      onInputChange={onInputChange}/>
+      invoiceNumber={undefined} 
+      amount={undefined}    
+     />
       <InputRfc 
       rfc={rfc} 
       checkedRfc={checkedRfc} 

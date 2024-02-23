@@ -13,7 +13,7 @@ export const Companies = () => {
     getObject('/company', setObject)
   }, [])
 
-  let columnsName = [{field: 'name',headerName: 'Nombre',description:'',width:''}]
+  let columnsName = [{field: 'name',headerName: 'Nombre',description:'',width:300}]
 
   let route = '/newcompany'
   

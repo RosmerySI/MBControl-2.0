@@ -60,15 +60,15 @@ export const NewIncomeProvider = () => {
       <div className='newProviderContainer'>
         <div style={{ width: '55%', marginBottom: '20px' }}>
           <InputText
+            onInputChange={onInputChange}
             placeholder={''}
             name={name}
+            nameValid={nameValid}
             phone={undefined}
+            phoneValid={''}
             invoiceNumber={undefined}
             amount={undefined}
-            folio={undefined}
-            nameValid={nameValid}
-            phoneValid={''}
-            onInputChange={onInputChange}
+            folio={undefined}          
           />
         </div>
         <div style={{ width: '55%', marginBottom: '20px' }}>
