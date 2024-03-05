@@ -12,7 +12,7 @@ const initialValue = {
   model: [],
 }
 
-export const NewOutComeProvider = () => {
+export const NewOutComeProvider = ({setSessionName}) => {
 
   const [models, setModels] = useState()
   const[formData, setFormData]= useState({})
@@ -21,6 +21,7 @@ export const NewOutComeProvider = () => {
 
   useEffect(() => {
     getObject('/model', setModels)
+    setSessionName('Nuevo Proveedor Egreso')
   }, [])
 
   const formValidations = {

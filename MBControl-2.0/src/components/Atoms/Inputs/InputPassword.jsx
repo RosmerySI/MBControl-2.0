@@ -18,7 +18,8 @@ export const InputPassword = ({password,passwordValid,onInputChange}) => {
               InputProps={{ disableUnderline: true }}
               sx={{
                 '& .css-1d1r5q-MuiFormHelperText-root': { marginLeft: '50px' },
-                '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { height: '40px' }
+                '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': {
+                height: '40px', width:'90%', marginLeft:'30px' }
               }}>
               {/* <img src="../../../assets/images/hide.png" alt="lock" /> */}
             </TextField>

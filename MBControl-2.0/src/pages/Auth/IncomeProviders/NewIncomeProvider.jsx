@@ -8,14 +8,14 @@ import { ColumnsIncomeProvider } from '../../../components/Atoms/Columns/Columns
 const initialValue = {
   name: ''
 }
-export const NewIncomeProvider = () => {
+export const NewIncomeProvider = ({setSessionName}) => {
 
   const [formData, setFormData] = useState({})
   const [toggleInvoiceTotal, setToggleInvoiceTotal] = useState()
   const [toggleNotInvoiceTotal, setToggleNotInvoiceTotal] = useState()
 
   useEffect(() => {
-
+    setSessionName('Nuevo Proveedor Ingreso')
     let formDataCopy = { ...formData }
     let toggleInvoiceTotalCopy = { ...toggleInvoiceTotal }
     let toggleNotInvoiceTotalCopy = { ...toggleNotInvoiceTotal }

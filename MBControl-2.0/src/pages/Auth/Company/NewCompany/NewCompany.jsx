@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { InputText } from '../../../../components/Atoms/Inputs/InputText'
 import { SubmitButton } from '../../../../components/Atoms/Button/SubmitButton'
 import { useForm } from '../../../../utilities/hook/useForm'
 import '../../newStyle.css'
 
-const initialValue = {
-  name: '',
 
-}
 
-export const NewCompany = () => {
+export const NewCompany = ({setSessionName,editCompany}) => {
+  useEffect(() => {
+    editCompany?
+    setSessionName('Editar Empresa'):
+    setSessionName('Nueva Empresa')
+  }, [])
+  
+
+  const initialValue = {
+    name: editCompany?editCompany:'',
+  
+  }
   const formValidations = {
     name: [(value) => value?.length >= 2, 'El nombre de 2 o más caracteres es obligatorio'],
   }
@@ -30,11 +38,11 @@ export const NewCompany = () => {
         <div style={{width:'50%', display:'flex', justifyContent:'center'}}>
         <SubmitButton
           data={{ name}}
-          firstButtonText={'Guardar'}
+          firstButtonText={editCompany?'Editar':'Guardar'}
           secondButtonText={''}
           setAuth={''}
           route={'company'}
-          rows={''} />
+          rows={'edit'} />
         </div>
         </div>
       </div>

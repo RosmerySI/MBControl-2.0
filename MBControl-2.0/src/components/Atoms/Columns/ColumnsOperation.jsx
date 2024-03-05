@@ -11,9 +11,9 @@ export const ColumnsOperation = (
   handleTableProductAmountChange,
   handleIncomeProviderChange,
   handleOutcomeProviderChange,
-  getOutcomeProvider
+  getOutcomeProvider,
+  models
   ) => {
-
   const limitCharacter = 11;
 
   let columns = [
@@ -64,10 +64,10 @@ export const ColumnsOperation = (
               boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 },
               '.css-1hmx59r-MuiFormControl-root-MuiTextField-root':{width:'45px'}
             }}>
-            {incomeProviders?.map((test) => (
-              <MenuItem key={test.id} value={test.id}>
+            {incomeProviders?.map((provider) => (
+              <MenuItem key={provider.id} value={provider.id}>
                 <ListItemText sx={{ width: { sm: 50 }, display: 'inline-block' }}
-                  primary={test.name} />
+                  primary={provider.name} />
               </MenuItem>
             ))}
           </TextField>
@@ -95,12 +95,13 @@ export const ColumnsOperation = (
               '.css-1hmx59r-MuiFormControl-root-MuiTextField-root':{width:'45px'}
             }}>
             {
-              outcomeProviderById?.map((test) => (
-                // outcomeProviderById[models.findIndex(item=>item.id==cellvalues.row.id)]?.map((test) => (
-                <MenuItem key={test.id} value={test.id} >
+              
+              outcomeProviderById&&models&&              
+              outcomeProviderById[models?.findIndex(item => item.id == cellvalues.row.id)]?.map((provider) => (
+                <MenuItem key={provider.id} value={provider.id} >
                   <ListItemText
                     sx={{ width: { sm: 50 }, display: 'inline-block' }}
-                    primary={test.name} />
+                    primary={provider.name} />
                 </MenuItem>
               ))}
           </TextField>

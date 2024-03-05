@@ -16,7 +16,7 @@ const initialValue = {
   rfc: '',
   promoter:'', 
 }
-export const NewClient = () => {
+export const NewClient = ({setSessionName}) => {
 
   const { clientId } = useParams()  
 
@@ -45,8 +45,9 @@ export const NewClient = () => {
     
     if(clientId){
       await getObject(`/client/${clientId}`, setClientToEdit)
-      
+      setSessionName('Editar Cliente')
     }else{
+      setSessionName('Nuevo Cliente')
       await getObject('/model', setModels)
       await  getObject('/promoter',setPromoters)
       let comisionClientCopy = { ...comisionClient }      

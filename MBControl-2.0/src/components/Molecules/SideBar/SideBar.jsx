@@ -120,19 +120,14 @@ export const SideBar = ({ roles, sessionName, setSessionName }) => {
     }, [roles])
     
     return (
-
         <Box
             component='nav'
             sx={{ width: { sm: 190 }, flexShrink: { sm: 500 } }}
-
         >
-
             <Drawer
-
                 variant='permanent' // temporary
                 open
                 sx={{
-
                     display: { xs: 'block' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 190, backgroundColor: '#e6e6e6', color: 'black' },
 
@@ -146,7 +141,8 @@ export const SideBar = ({ roles, sessionName, setSessionName }) => {
                         
                         onClick={async() => {
                             navigate(roles === 'Admin' ? '/homeadmin' : '/homelink')
-                            await setSessionName(roles === 'Admin' ? 'Administrador' : 'Enlace')
+                            await setSessionName(roles.includes('Admin')? 
+                            'Catálogo':'Qué quieres hacer')
 
                         }}
 

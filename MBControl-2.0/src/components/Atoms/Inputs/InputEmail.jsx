@@ -19,10 +19,12 @@ export const InputEmail = ({email,emailValid,onInputChange,labelText}) => {
                 onChange={onInputChange}
                 error={emailValid}
                 helperText={emailValid}
-                InputProps={{disableUnderline: true }}
+                InputProps={{disableUnderline: true, readOnly:labelText==='Correo'?true:false}}
                 sx={{
-                    '& .css-1d1r5q-MuiFormHelperText-root': { marginLeft: '10px' },
-                    '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { height: '30px' }
+                    '& .css-1d1r5q-MuiFormHelperText-root': { marginLeft: '50px' },
+                    '& .css-1x51dt5-MuiInputBase-input-MuiInput-input': { 
+                    height: '30px',width:'90%',marginLeft:'30px'},
+                    
                 }} />
         </div>
     )

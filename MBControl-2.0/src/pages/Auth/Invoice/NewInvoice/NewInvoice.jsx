@@ -13,7 +13,7 @@ const initialValue = {
   invoiceNumber: '',
   amount: '',  
 }
-export const NewInvoice = () => {
+export const NewInvoice = ({setSessionName}) => {
 
   const [companies, setCompanies] = useState()
   const [clients, setClients] = useState()
@@ -25,6 +25,7 @@ export const NewInvoice = () => {
   useEffect(() => {
     getObject('/company',setCompanies)
     getObject('/client',setClients)
+    setSessionName('Nueva Factura')
   }, [])
 
   return (

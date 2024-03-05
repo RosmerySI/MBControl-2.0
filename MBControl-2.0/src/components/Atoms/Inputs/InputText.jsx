@@ -26,7 +26,7 @@ export const InputText = ({
         <div className='inputNameContainer'>
            {folio&&<label style={{fontSize:'10px',margin:'0px'}}>Folio</label>}
             <TextField
-                label={label}
+                label={label==='Folio'?'':label}
                 variant='standard'
                 className='textInput'
                 type='text'

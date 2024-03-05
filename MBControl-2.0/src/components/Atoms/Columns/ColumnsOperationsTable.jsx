@@ -371,7 +371,7 @@ export const ColumnsOperationsTable = (suboperation) => {
       sortable: false,
       width: 90,
       renderCell: (cellvalues) => {
-        return (!suboperation&&(cellvalues.row.createdAt !== 'Totales') &&EditComponent(cellvalues,`/newoperation?idedit=${cellvalues.row.id}`))
+        return (!suboperation&&(cellvalues.row.createdAt !== 'Totales') &&EditComponent(cellvalues,`/newoperation/?idedit=${cellvalues.row.id}`))
       }
     },
     {
@@ -389,7 +389,7 @@ export const ColumnsOperationsTable = (suboperation) => {
                 color={!cellvalues.row.status ? 'error' : 'success'}
                 onClick={(event) => {
                   if (!cellvalues.row.status) {
-                    navigate(`/newoperation?id=${cellvalues.row.id}`)
+                    navigate(`/newoperation/?id=${cellvalues.row.id}`)
                   }
                 }}
               >

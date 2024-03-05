@@ -7,7 +7,7 @@ import { petitions } from '../../../services/api/petitions';
 
 ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-export const PieOperation = () => {
+export const PieOperation = ({setSessionName}) => {
 
   const [params] = useSearchParams();
   const operationId = params.get('operationId');
@@ -18,6 +18,7 @@ export const PieOperation = () => {
   
   useEffect(() => {
     getObject(`/operation/${operationId}`,setObject)
+    setSessionName('Gráficas')
   }, [])
 
   let myLabels = ['Retorno', 'Excedente', 'Comisión Promotor', 'Costo Proveedor Ingreso', 'Costo Proveedor Egreso',

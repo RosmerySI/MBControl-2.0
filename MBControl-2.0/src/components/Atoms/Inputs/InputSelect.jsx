@@ -14,8 +14,7 @@ export const InputSelect=({
     onInputChange,
     labelText,
     parent})=>{
-
-    return (
+        return (
         <div className={labelText==='Productos'?'selectProductContainer':'selectContainer'}>
             <TextField  
                 select 
@@ -38,18 +37,20 @@ export const InputSelect=({
                        company!==undefined?company:
                        invoice!==undefined?invoice:
                        model!==undefined?model:role
-                       ||''}
+                       }
                 onChange={onInputChange}
                 SelectProps={{multiple:model?true:invoice?true:role?true:false}}
-                inputProps={
-                    { readOnly: parent ?false:true  }
+                inputProps={parent!==undefined&&
+                    { readOnly: parent?false:true  }
                   }
                 sx={{ width: '100%' ,
                 '& .css-q3t2rb-MuiListItemText-root':{width: '110px'}
                 }}>
                 {
                 object?.map((selected) => (
-                    <MenuItem key={selected.id?selected.id:selected.email} value={selected.id?selected.id:selected.email}>
+                    <MenuItem 
+                    key={selected.id?selected.id:selected.email?selected.email:selected.name} 
+                    value={selected.id&&!selected.concurrencyStamp?selected.id:selected.email?selected.email:selected.name}>
                         <ListItemText sx={{ width: { sm: 50 }, display: 'inline-block' }}
                             primary={selected.name?selected.name:`${selected.number}-$${selected.remainingAmount}`} />
                     </MenuItem>

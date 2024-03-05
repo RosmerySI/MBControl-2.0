@@ -20,7 +20,7 @@ const initialValue = {
   email: '',
 }
 
-export const NewPromoter = () => {
+export const NewPromoter = ({setSessionName}) => {
 
   const [models, setModels] = useState()
   const [G3, setG3] = useState()
@@ -71,6 +71,7 @@ export const NewPromoter = () => {
 
   useEffect(() => {
     settingInitialValues()
+    setSessionName('Nuevo Promotor')
   }, [])  
 
   let linksObject=[]
