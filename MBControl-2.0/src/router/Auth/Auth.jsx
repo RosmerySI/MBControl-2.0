@@ -31,6 +31,9 @@ export const Auth = ({ setAuth }) => {
 
   const [user, setUser] = useState({})
 
+  const [editUserRole, setEditUserRole] = useState([])
+  const [editCompany, setEditCompany] = useState()
+
   const { useremail, userrole, username } = userInfo()
 
   let localStorageSesssionName = localStorage.getItem('sessionName');
@@ -52,7 +55,7 @@ export const Auth = ({ setAuth }) => {
     }
     setUser(userToken)
   }, [])
-
+  
   return (
     <>
       <HeadBar setAuth={setAuth} user={user} sessionName={sessionName} />
@@ -63,24 +66,24 @@ export const Auth = ({ setAuth }) => {
             <Routes>
               <Route path="/homeadmin" element={<HomeAdmin setSessionName={setSessionName} />} />
               <Route path="/newclient/:clientId" element={<NewClient />} />
-              <Route path="/newclient" element={<NewClient />} />
+              <Route path="/newclient" element={<NewClient setSessionName={setSessionName} />} />
               <Route path="/clients" element={<Clients />} />
-              <Route path="/newoperation" element={<NewOperation />} />                        
+              <Route path="/newoperation" element={<NewOperation setSessionName={setSessionName} />} />                        
               <Route path="/operations" element={<Operations />} />
-              <Route path="/suboperations" element={<SubOperations />} />
+              <Route path="/suboperations" element={<SubOperations setSessionName={setSessionName} />} />
               <Route path="/pieOperation" element={<PieOperation setSessionName={setSessionName}/>} />
-              <Route path="/newpromoter" element={<NewPromoter sessionName={sessionName} />} />
+              <Route path="/newpromoter" element={<NewPromoter setSessionName={setSessionName} sessionName={sessionName} />} />
               <Route path="/promoters" element={<Promoters />} />
-              <Route path="/newuser" element={<NewUser />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/newcompany" element={<NewCompany />} />
-              <Route path="/companies" element={<Companies />} />
-              <Route path="/newinvoice" element={<NewInvoice />} />
+              <Route path="/newuser" element={<NewUser setSessionName={setSessionName} editUserRole={editUserRole} />} />
+              <Route path="/users" element={<Users setEditUserRole={setEditUserRole} />} />
+              <Route path="/newcompany" element={<NewCompany setSessionName={setSessionName} editCompany={editCompany}/>} />
+              <Route path="/companies" element={<Companies setEditCompany={setEditCompany} />} />
+              <Route path="/newinvoice" element={<NewInvoice setSessionName={setSessionName} />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/incomeproviders" element={<IncomeProviders />} />
-              <Route path="/newincomeprovider" element={<NewIncomeProvider />} />
+              <Route path="/newincomeprovider" element={<NewIncomeProvider setSessionName={setSessionName} />} />
               <Route path="/outcomeproviders" element={<OutcomeProviders />} />
-              <Route path="/newoutcomeprovider" element={<NewOutComeProvider />} />
+              <Route path="/newoutcomeprovider" element={<NewOutComeProvider setSessionName={setSessionName} />} />
               <Route path="/calccomision" element={<CalcComision />} />
               <Route path="/calcreturn" element={<CalcReturn />} />
               <Route path="/*" element={<Navigate to="/homeadmin" />} />

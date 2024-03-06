@@ -106,12 +106,11 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
         factura:''        
       };
       console.log(dataOperation)
-      dataOperation.isParent?
-      console.log('es padre y se para editar')     
-      //putObject(`operation/${dataOperation.parentOperationId}`, dataOperation)
+      dataOperation.isParent?               
+      putObject(`operation/${dataOperation.parentOperationId}`, dataOperation,
+      '/operations','La operación se editó con éxito')
       :
-      console.log('se va a crear una operacion o suboperacion')
-      //postObject(route, dataOperation, setAuth, navigate);
+      postObject(route, dataOperation, setAuth, navigate);
     } else {
       modalError(
       "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto."
@@ -198,14 +197,35 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
       "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto.");
     }
   }else if(route==='user/newUserRequest'){
-    console.log(data)        
-    if(data.email!==''&&data.email!==undefined&&data.role.length!==0){
+    console.log(data,rows)
+    let rolesId=[] 
+    rows?.forEach(item=>{
+      data?.role?.role?.forEach(element=>{
+        if(item.name===element){
+          rolesId.push(item.id)
+        }
+      })
+    })      
+    if(data.email!==''&&data.email!==undefined&&data.role.role.length!==0){
       const dataNewUser = {
         email:data.email,
-        rolesId:data.role,            
+        rolesId:rolesId,            
       };
       
       postObject(route, dataNewUser, setAuth, navigate,setObject);
+    } else {
+      modalError(
+      "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto.");
+    }
+  }else if(route==='user/modifyRoles'){
+         
+    if(data.role.role.length!==0){
+      const dataModifyUser = {
+        email:data.email,
+        rolesName:data.role.role            
+      };
+         
+      postObject(route, dataModifyUser, setAuth, navigate,setObject);
     } else {
       modalError(
       "Revisa nombre, teléfono, email. Escoge G3 y enlace. Marca algún Método de Contacto.");
@@ -217,7 +237,8 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
         name:data.name,
                    
       };
-      
+      rows?
+      putObject(route,dataNewCompany,'/companies','La empresa se editó con éxito'):
       postObject(route, dataNewCompany, setAuth, navigate,setObject);
     } else {
       modalError(

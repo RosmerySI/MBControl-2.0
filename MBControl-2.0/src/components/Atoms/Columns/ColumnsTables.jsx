@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { EditComponent } from '../../Particules/Edit/EditComponent';
 import { UserActivation } from '../../Particules/Users/UserActivation';
 import { ModelsTableSideBar } from '../../Particules/Models/ModelsTableSideBar';
 import { userInfo } from '../../../utilities/userInfo/userInfo';
 
-export const ColumnsTables = (columnsName,route,setObject) => {
-
+export const ColumnsTables = (columnsName,route,setObject,setEdit) => {
+    
     const [columnsTables, setColumnsTables] = useState([]);
     const {userrole} = userInfo()
     // Map columns when columnsName change
@@ -37,14 +37,14 @@ export const ColumnsTables = (columnsName,route,setObject) => {
         let columnEdit
         if (route !== '/invoice'&&route !== '/incomeProvider'&&route !== '/outcomeProvider') {
             columnEdit = {
-                field:(userrole === 'Admin') && 'Editar',
+                field:(userrole.includes('Admin')) && 'Editar',
                 disableColumnMenu: true,
                 sortable: false,
                 width: 70,
                 renderCell: (cellvalues) => {
                 return (
                     (cellvalues.row.roles !== null) &&
-                    EditComponent(cellvalues,route)
+                    EditComponent(cellvalues,route,setEdit)
                     )
                 }
             }

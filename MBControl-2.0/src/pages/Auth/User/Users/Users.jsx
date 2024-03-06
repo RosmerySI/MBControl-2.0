@@ -3,7 +3,7 @@ import { ColumnsTables } from '../../../../components/Atoms/Columns/ColumnsTable
 import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
 import { petitions } from '../../../../services/api/petitions'
 
-export const Users = () => {
+export const Users = ({setEditUserRole}) => {
 
     const [object, setObject] = useState()
 
@@ -14,6 +14,7 @@ export const Users = () => {
     }, [])
 
     let userObject = []
+
     object?.forEach((item) => {
         const dateUTCRequested = new Date(item.requestedAt);
         const dateLocalRequested = dateUTCRequested.toLocaleString('es-ES', {
@@ -44,6 +45,7 @@ export const Users = () => {
             requestedAt: dateLocalRequested,
             userName: item.userName,
             roles: item.roles,
+           
         }
         userObject.push(element)
     });
@@ -62,9 +64,10 @@ export const Users = () => {
     const { columnsTables } = ColumnsTables(
         columnsName,        
         route,
-        setObject,                
+        setObject, 
+        setEditUserRole               
     )
-
+  
     return (
         <DataTables
             buttonRoute={'/newuser'}

@@ -4,12 +4,17 @@ import { modalSuccess } from "../../utilities/modals/modals";
 
 export const petitions = () => {
   
-  const getObject = async (route, setObject) => {
+  const getObject = async (route, setObject, modelIndex,object) => {
     
     try {
       const { data } = await mbControlApi.get(route);
+      if(modelIndex){
+      let dataSave=[...object]    
+      dataSave[modelIndex]=data
+      setObject(dataSave);
+      }else{
       setObject(data);
-      
+      }      
     } catch (error) {
       console.log("error", error);
       let status = error.response.status;
@@ -60,6 +65,10 @@ export const petitions = () => {
       navigate('/companies')
       modalSuccess('La empresa se guardó con exito')
     }      
+    if(route==='user/modifyRoles'){
+      navigate('/users')
+      modalSuccess('El usuario se editó con exito')
+    }      
     } catch (error) {
       console.log(error)
       let status = error.response?.request.status;
@@ -67,9 +76,12 @@ export const petitions = () => {
       manageError(status, variable);
     }
   };
-  const putObject = async (route,data) => {
+  const putObject = async (route,data,navigateRoute,message) => {
+    console.log(route,data,navigateRoute,message)
     try {
       await mbControlApi.put(route,data);
+      navigate(navigateRoute)
+      modalSuccess(message)
     } catch (error) {
       let status = error.response.status;
       let variable = error.response.data;

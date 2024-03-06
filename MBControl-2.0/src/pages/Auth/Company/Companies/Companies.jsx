@@ -3,7 +3,7 @@ import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
 import { petitions } from '../../../../services/api/petitions'
 import { ColumnsTables } from '../../../../components/Atoms/Columns/ColumnsTables'
 
-export const Companies = () => {
+export const Companies = ({setEditCompany}) => {
 
   const [object, setObject] = useState()
 
@@ -19,7 +19,9 @@ export const Companies = () => {
   
   const { columnsTables } = ColumnsTables(
     columnsName,
-    route
+    route,
+    setObject,
+    setEditCompany
   )
 
   return (

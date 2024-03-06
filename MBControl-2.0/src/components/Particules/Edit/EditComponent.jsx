@@ -1,23 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import edit from '../../../assets/images/edit.png'
+import { petitions } from '../../../services/api/petitions';
 
-export const EditComponent = (cellvalues,route) => {
+export const EditComponent = (cellvalues, route, setEdit) => {
+   
+    const [roles, setRoles] = useState()
+    const{getObject}=petitions()
+    useEffect(() => {
+        getObject('rol', setRoles)
+    }, [])
 
+    let toEditUserRolesId = []
+ 
+    roles?.forEach(item => {
+        cellvalues.row.roles?.forEach(element => {
+            if (item.name === element) {
+                toEditUserRolesId.push(item.name)                
+            }           
+        })
+    })
+   
     const navigate = useNavigate()
 
     const handleClickEdit = () => {
         const email = cellvalues.row.email
         const role = cellvalues.row.roles
         const id = cellvalues.row.id
+        const name= cellvalues.row.name
         //const clientId = cellvalues.row.id;        
         //navigate(`/newclient/${clientId}`)
         // const promoterId = cellvalues.row.id
         // navigate(`/newpromoter/?promoterId:${promoterId}`) 
         // const operationId = cellvalues.row.id;
         // navigate(`/newoperation/?operationId:${operationId}`) 
-        navigate(route)
+        if (role) {
+            navigate(`${route}?email=${email}`)
+            setEdit(toEditUserRolesId)
+        } else {
+            
+            switch (route) {
+                case '/newcompany':
+                    navigate(route)
+                    setEdit(name)   
+                break;
+                case `/newoperation/?idedit=${cellvalues.row.id}`:
+                    navigate(route)   
+                break;
+                case '/newclient':
+                    console.log('client')
+                default:
+                    
+                    break;
+            }
+            
+        }
     }
     return (
         <Button
