@@ -10,35 +10,33 @@ import { ColumnsOperation } from '../../../../components/Atoms/Columns/ColumnsOp
 import { userInfo } from '../../../../utilities/userInfo/userInfo';
 import { useLocation } from 'react-router-dom';
 
-export const NewOperation = () => {
-  
+export const NewOperation = ({setSessionName}) => {
+
   const [toggleInvoice, setToggleInvoice] = useState(false);
   const [clients, setClients] = useState();
   const [client, setClient] = useState({
-    client:''
+    client: ''
   });
   const [companies, setCompanies] = useState();
   const [company, setCompany] = useState({
-    company:''
+    company: ''
   });
   const [folio, setFolio] = useState()
   const [invoices, setInvoices] = useState();
   const [invoice, setInvoice] = useState({
-    invoice:[]
+    invoice: []
   });
   const [amount, setAmount] = useState({
-    amount:''
+    amount: ''
   });
   const [toggleTotal, setToggleTotal] = useState(false);
-  const [model, setModel] = useState({
-    model:[]
-  });
+  
   const [models, setModels] = useState();
-  const [tableProductAmount, setTableProductAmount] = useState({});
+  const [tableProductAmount, setTableProductAmount] = useState(0);
   const [incomeProviders, setIncomeProviders] = useState();
-  const [outcomeProviderById, setOutcomeProvidersById] = useState();
-  const [incomeProvider, setIncomeProvider] = useState();
-  const [outcomeProvider, setOutcomeProvider] = useState();
+  const [outcomeProviderById, setOutcomeProvidersById] = useState([]);
+  const [incomeProvider, setIncomeProvider] = useState([]);
+  const [outcomeProvider, setOutcomeProvider] = useState([]);
   const [dataTable, setDataTable] = useState();
 
   const [operationData, setOperationData] = useState()
@@ -68,27 +66,19 @@ export const NewOperation = () => {
       ...amount,
       [event.target.name]: event.target.value
     }))
-  }
-  const onModelChange = (event) => {
-    setModel(({
-      ...model,
-      [event.target.name]: event.target.value
-    }))
-    
-  }
+  }  
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id');
   const idedit = searchParams.get('idedit');
-  let myId =id?id:idedit
+  let myId = id ? id : idedit
+  console.log('myId',myId)
+  let parent = id ? false : true
 
-  let parent=idedit?true:false
- 
   const { getObject } = petitions();
   const { useremail } = userInfo();
 
-  
   useEffect(() => {
     getObject('/company', setCompanies)
     getObject('/client', setClients)
@@ -96,70 +86,91 @@ export const NewOperation = () => {
     getObject('/model', setModels)
     getObject('/providerInCome', setIncomeProviders)
     getObject(`/operation/nextFolio/${useremail}`, setFolio)
-
+    setSessionName('Nueva Operación')
     if (myId) {
       getObject(`/operation/${myId}`, setOperationData);
+      setSessionName(id?'Nueva Sub-Operación':idedit&&'Editar Operación')
     }
   }, [])
+   
+  let editedModels=[]
   
-  useEffect(() => {
+  operationData?.models.forEach(item =>{
+    if(item.retorno!==0){      
+      editedModels.push(item.modelId)     
+        
+    }
+  })
+ 
+  const [model, setModel] = useState({
+    model:[]
+  });
+  
+
+  const onModelChange = (event) => {
+    setModel(({
+      ...model,
+      [event.target.name]: event.target.value
+    }))
+
+  }
+  useEffect(() => {  
     if (operationData && myId) {
-      setClient({client:operationData.clientId})
-      setCompany({company:operationData.companyId})
-      setAmount({amount:operationData.excedente})
+    
+      let tableProductAmountCopy = { ...tableProductAmount }
+      let incomeProviderCopy = { ...incomeProvider }
+      let outcomeProviderCopy = { ...outcomeProvider }
+      setFolio(operationData.folio)
+      setModel({model:editedModels})
+      setClient({ client: operationData.clientId })
+      setCompany({ company: operationData.companyId })
+      setAmount({ amount: operationData.excedente })
 
       if (operationData.invoiceIds.length) {
         let newArrayInvoice = []
         operationData.invoiceIds.map(item => {
           newArrayInvoice.push(item)
         })
-        setInvoice({invoice:newArrayInvoice})
+        setInvoice({ invoice: newArrayInvoice })
         setToggleInvoice(false)
 
       } else {
         setToggleInvoice(true)
       }
+    
+      if (operationData.models.length) {
+        operationData?.models?.forEach(element => {
+        tableProductAmountCopy[element.name] = element.retorno
+        incomeProviderCopy[element.name] = element.providerIncomeId
+        outcomeProviderCopy[element.name] = element.providerOutcomeId
 
-    }
-  }, [operationData])
-
-  let modelProvider = []
-
-  model?.model?.forEach(element => {
-    models?.forEach(item => {
-      if (element === item.id) {
-        let model = {
-          name: item.name,
-          id: item.id
-        }
-        modelProvider.push(model)
+      })
       }
-    })
-  })
-
-  useEffect(() => {
-    if (models) {
-
-      let tableProductAmountCopy = { ...tableProductAmount }
-      let incomeProviderCopy = { ...incomeProvider }
-      let outcomeProviderCopy = { ...outcomeProvider }
-
-      models.forEach(element => {
-        tableProductAmountCopy[element.name] = 0
-        incomeProviderCopy[element.name] = ''
-        outcomeProviderCopy[element.name] = ''
-      });
-
       setTableProductAmount(tableProductAmountCopy)
       setIncomeProvider(incomeProviderCopy)
       setOutcomeProvider(outcomeProviderCopy)
+    } else {
+     
+      let tableProductAmountCopy = { ...tableProductAmount }
+      let incomeProviderCopy = { ...incomeProvider }
+      let outcomeProviderCopy = { ...outcomeProvider }
+      models?.forEach(element => {
+        tableProductAmountCopy[element.name] = 0
+        incomeProviderCopy[element.name] = []
+        outcomeProviderCopy[element.name] = []
+      });
+
+      setTableProductAmount( tableProductAmountCopy )
+      setIncomeProvider( [incomeProviderCopy] )
+      setOutcomeProvider( [outcomeProviderCopy] )
       setDataTable({
         return: tableProductAmountCopy,
         providerIncomeId: incomeProviderCopy,
         providerOutcomeId: outcomeProviderCopy
       })
-    }
-  }, [models]);
+    }   
+
+  }, [operationData]);
 
   const handleTableProductAmountChange = (event) => {
     setTableProductAmount({
@@ -204,11 +215,26 @@ export const NewOperation = () => {
       },
     })
   };
-
+  
   const getOutcomeProvider = async (myId) => {
-    getObject(`/providerOutCome/models/${myId}`, setOutcomeProvidersById);
+    const modelIndex = models.findIndex(item => item.id == myId)    
+    getObject(`/providerOutCome/models/${myId}`, setOutcomeProvidersById,modelIndex,outcomeProviderById);
   };
 
+  let modelProvider = []
+
+  model?.model?.forEach(element => {
+    models?.forEach(item => {
+      if (element === item.id) {
+        let model = {
+          name: item.name,
+          id: item.id ? item.id : item.modelId
+        }
+        modelProvider.push(model)
+      }
+    })
+  })
+ 
   const { columns } = ColumnsOperation(
     incomeProvider,
     outcomeProvider,
@@ -218,7 +244,8 @@ export const NewOperation = () => {
     handleTableProductAmountChange,
     handleIncomeProviderChange,
     handleOutcomeProviderChange,
-    getOutcomeProvider
+    getOutcomeProvider,
+    models
   )
 
   const handleToggleInvoiceChange = () => {
@@ -228,6 +255,7 @@ export const NewOperation = () => {
   const handleToggleTotalChange = () => {
     setToggleTotal(!toggleTotal);
   }
+  
   return (
     <div className='newContainerOperation'>
       <div className='newOperationContainer'>
@@ -256,7 +284,7 @@ export const NewOperation = () => {
               role={undefined}
               onInputChange={onClientChange}
               labelText={'Cliente'}
-              parent={parent}              
+              parent={parent}
             />
           </div>
           <div style={{ width: '24%' }}>
@@ -271,21 +299,23 @@ export const NewOperation = () => {
               model={undefined}
               role={undefined}
               onInputChange={onCompanyChange}
-              labelText={'Empresa'} 
-              parent={parent} 
-              />
+              labelText={'Empresa'}
+              parent={parent}
+            />
           </div>
           <div style={{ width: '24%' }}>
             <InputText
               onInputChange={onInputChange}
-              placeholder={'Folio'}
+              placeholder={''}
               name={undefined}
-              nameValid={''}
+              nameValid={undefined}
               phone={undefined}
-              phoneValid={''}
+              phoneValid={undefined}
               invoiceNumber={undefined}
               amount={undefined}
               folio={folio}
+              provider={undefined}
+              label={'Folio'}
             />
           </div>
         </div>
@@ -304,8 +334,8 @@ export const NewOperation = () => {
               role={undefined}
               onInputChange={onInvoiceChange}
               labelText={'Factura'}
-              parent={parent} 
-              />
+              parent={parent}
+            />
           </div>
         }
         <div style={{ height: '150px' }}>
@@ -313,14 +343,14 @@ export const NewOperation = () => {
             onInputChange={onAmountChange}
             placeholder={'Monto Comprobante'}
             name={undefined}
-            nameValid={''}            
+            nameValid={''}
             phone={undefined}
             phoneValid={''}
             invoiceNumber={undefined}
             amount={amount.amount}
-            folio={undefined}            
+            folio={undefined}
             provider={''}
-            label={parent?'':'Monto comprobante'}
+            label={parent ? '' : 'Monto comprobante'}
           />
           <Toggle
             toggleInvoice={''}
@@ -344,14 +374,14 @@ export const NewOperation = () => {
           role={undefined}
           onInputChange={onModelChange}
           labelText={'Productos'}
-          parent={parent} 
-         />
-        <div style={{ width: '90%', height: 'fit-content', marginTop: '10px' }}>
+
+        />
+        <div style={{ width: '100%', height: 'fit-content', marginTop: '10px' }}>
           {modelProvider && columns && <ModelsTable rows={modelProvider} columns={columns} />}
         </div>
         <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
           <SubmitButton
-            data={{ client, company, folio, invoice, amount, toggleTotal,toggleInvoice, useremail, dataTable,myId,parent }}
+            data={{ client, company, folio, invoice, amount, toggleTotal, toggleInvoice, useremail, dataTable, myId, parent }}
             firstButtonText={'Crear'}
             secondButtonText={''}
             setAuth={''}

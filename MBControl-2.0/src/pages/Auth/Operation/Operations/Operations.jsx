@@ -9,7 +9,7 @@ export const Operations = () => {
   const {updatedOperation,parentOperationId}=OperationsObject()
   let suboperation=parentOperationId?true:false
   const {columnsOperationsTable} = ColumnsOperationsTable(suboperation)
-
+  
   return (
     <DataTables
       buttonRoute={'/newoperation'}
