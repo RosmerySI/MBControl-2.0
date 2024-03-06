@@ -42,7 +42,7 @@ export const NewCompany = ({setSessionName,editCompany}) => {
           secondButtonText={''}
           setAuth={''}
           route={'company'}
-          rows={'edit'} />
+          rows={editCompany?'edit':''} />
         </div>
         </div>
       </div>
