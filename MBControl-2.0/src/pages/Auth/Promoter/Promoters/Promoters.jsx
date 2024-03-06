@@ -3,8 +3,6 @@ import { DataTables } from '../../../../components/Atoms/Tables/DataTables'
 import { petitions } from '../../../../services/api/petitions'
 import { ColumnsTables } from '../../../../components/Atoms/Columns/ColumnsTables'
 
-
-
 export const Promoters = () => {
 
   const [object, setObject] = useState()

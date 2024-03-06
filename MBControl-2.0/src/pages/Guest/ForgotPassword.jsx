@@ -17,10 +17,14 @@ export const ForgotPassword = () => {
   return (
     <div className='guest'>
     <div className='guestContainer'>
+    <div className='loginFormContainer'>
       <h1>Recupera tu contraseña</h1>
-      <p>Ingrese el email asociado a su cuenta, se enviará un link para establecer su nueva contraseña.</p>
+      <p>Teclee el email asociado a su cuenta, se enviará un link para establecer su nueva contraseña.</p>
+      <div className='inputContainer'>
       <InputEmail email={email} emailValid={emailValid} onInputChange={onInputChange}/>
-      <SubmitButton data={{ email}} firstButtonText={'Enviar'} secondButtonText={''} setAuth={''} route={'login'} rows={''}/>
+      </div>
+      <SubmitButton data={{ email}} firstButtonText={'Enviar'} secondButtonText={'Regresar'} setAuth={''} route={'login'} rows={''}/>
+    </div>
     </div>
     </div>
   )
