@@ -21,7 +21,6 @@ export const InputText = ({
     comisionPromoter,
     marketUtility,
     clientAmount}) => {
-    
     return (
         <div className='inputNameContainer'>
            {folio&&<label style={{fontSize:'10px',margin:'0px'}}>Folio</label>}

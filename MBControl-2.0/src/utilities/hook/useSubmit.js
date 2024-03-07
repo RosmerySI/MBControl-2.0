@@ -15,7 +15,7 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
       rows.forEach((element) => {
         const model = {
           modelId: element.id,
-          value: parseFloat(data.dataTable.formData[`model${element.name}`]) || 0,
+          value: parseFloat(data.dataTable.comision[element.name]) || 0,
           hasIva: data.dataTable.toggleModels[element.name] || false,
         };
         modelsClient.push(model);
@@ -26,8 +26,13 @@ export const useSubmit=(route,setAuth,data,navigate,rows,setObject)=>{
         rfc: data.rfc,        
         promoterId: data.promoter,
         models: modelsClient,
-      };      
-      postObject(route, dataClient, setAuth, navigate);
+      }; 
+      data.clientEdit.length===0?      
+      postObject(route, dataClient, setAuth, navigate)
+      : 
+      putObject(`client/${data.clientEdit.id}`, dataClient, '/clients','El cliente se editó con éxito');   
+      console.log(dataClient) 
+      
     } else {
       modalError("Revisa el nombre el rfc o el promotor.");
     }

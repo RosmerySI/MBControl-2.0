@@ -1,19 +1,19 @@
 
-import * as React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 
 export const useForm = ( initialForm = {}, formValidations={} ) => {
+    
+    useEffect(() => {        
+        setFormState(initialForm);
+    }, [initialForm]);
 
-
-   
     const [ formState, setFormState ] = useState( initialForm );
     const [formValidation, setFormValidation] = useState({})
-    
+
     useEffect(() => {
-        createValidators();  
+        createValidators();     
+    }, [formState, initialForm])
      
-    }, [formState])
-   
 
     const isFormValid = useMemo(() =>{
     //se barre cada una de las propiedades(email, password, etc)
@@ -42,12 +42,10 @@ export const useForm = ( initialForm = {}, formValidations={} ) => {
         setFormState( initialForm );
     }
 
-    const createValidators = () => {
-        
+    const createValidators = () => {        
         const formCheckedValues = {};
         //formField es la property
-        for (const formField of Object.keys( formValidations )) {
-            
+        for (const formField of Object.keys( formValidations )) {            
             //desestructurar la funcion y el errorMessage que
             //que vienen del formValidations basado en el formField
             //lo que segnifica que va a pasar por cada una de las 
@@ -56,12 +54,9 @@ export const useForm = ( initialForm = {}, formValidations={} ) => {
 
             formCheckedValues[`${ formField }Valid`] = fn( formState[formField] ) ? null : errorMessage;
         }
-
-        setFormValidation( formCheckedValues );
-        
+        setFormValidation( formCheckedValues );       
     }
     
-
     return {
         ...formState,
         formState,
@@ -69,7 +64,6 @@ export const useForm = ( initialForm = {}, formValidations={} ) => {
         isFormValid,
 
         onInputChange,        
-        onResetForm,       
-        
+        onResetForm        
     }
 }

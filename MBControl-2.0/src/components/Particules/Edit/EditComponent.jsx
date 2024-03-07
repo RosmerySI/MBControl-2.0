@@ -45,11 +45,11 @@ export const EditComponent = (cellvalues, route, setEdit) => {
                     navigate(route)
                     setEdit(name)   
                 break;
-                case `/newoperation/?idedit=${cellvalues.row.id}`:
+                case `/newoperation/?idedit=${id}`:
                     navigate(route)   
                 break;
                 case '/newclient':
-                    console.log('client')
+                    navigate(`/newclient/?id=${id}`)
                 default:
                     
                     break;
